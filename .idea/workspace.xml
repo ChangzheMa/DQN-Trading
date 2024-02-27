@@ -4,169 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aecc937b-6d87-4645-86ef-be7d17e37463" name="Changes" comment="初始化 paper.py，学习使用原代码">
-      <change beforePath="$PROJECT_DIR$/Objects/RLAgent/AAPL-TRAIN_TEST_SPLIT(True)-NUM_ITERATIONS1000-N_STEP10-GAMMA1-ALPHA0.1-EPSILON0.1-EXPERIMENT.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Objects/RLAgent/BTC-USD-TRAIN_TEST_SPLIT(True)-NUM_ITERATIONS10000-N_STEP10-GAMMA0.9-ALPHA0.1-EPSILON0.1-EXPERIMENT.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Objects/RLAgent/GOOGL-TRAIN_TEST_SPLIT(True)-NUM_ITERATIONS10000-N_STEP10-GAMMA1-ALPHA0.1-EPSILON0.1-EXPERIMENT(1).pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Objects/RLAgent/KSS-TRAIN_TEST_SPLIT(True)-NUM_ITERATIONS10000-N_STEP10-GAMMA0.9-ALPHA0.1-EPSILON0.1-EXPERIMENT(1).pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN-ATTN; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.7; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN-ATTN; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.8; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN-ATTN; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE16; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN-ATTN; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE256; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN-ATTN; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN-ATTN; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE64; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN-ATTN; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE256; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN-ATTN; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE64; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN-GRU; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.7; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN-GRU; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.8; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN-GRU; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE16; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN-GRU; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE256; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN-GRU; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN-GRU; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE64; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN-GRU; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE256; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN-GRU; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE64; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN2D; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.7; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN2D; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.8; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN2D; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE16; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN2D; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE256; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN2D; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN2D; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE64; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN2D; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE256; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN2D; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE64; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.7; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.8; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE16; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE256; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE64; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE256; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/CNN; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE64; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(1); WindowSize(3); BATCH_SIZE16; GAMMA0.7; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(1); WindowSize(3); BATCH_SIZE16; GAMMA0.8; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(1); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE16; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(1); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE256; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(1); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(1); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE64; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(1); WindowSize(3); BATCH_SIZE256; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(1); WindowSize(3); BATCH_SIZE64; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(4); WindowSize(3); BATCH_SIZE16; GAMMA0.7; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(4); WindowSize(3); BATCH_SIZE16; GAMMA0.8; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(4); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE16; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(4); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE256; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(4); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(4); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE64; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(4); WindowSize(3); BATCH_SIZE256; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(4); WindowSize(3); BATCH_SIZE64; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(5); WindowSize(3); BATCH_SIZE16; GAMMA0.7; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(5); WindowSize(3); BATCH_SIZE16; GAMMA0.8; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(5); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE16; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(5); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE256; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(5); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(5); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE64; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(5); WindowSize(3); BATCH_SIZE256; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(5); WindowSize(3); BATCH_SIZE64; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(PatternBased); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(None); WindowSize(3); BATCH_SIZE16; GAMMA0.7; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(PatternBased); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(None); WindowSize(3); BATCH_SIZE16; GAMMA0.8; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(PatternBased); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(None); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE16; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(PatternBased); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(None); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE256; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(PatternBased); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(None); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(PatternBased); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(None); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE64; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(PatternBased); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(None); WindowSize(3); BATCH_SIZE256; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/DeepRL; DATA_KIND(PatternBased); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(None); WindowSize(3); BATCH_SIZE64; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/GRU; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.7; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/GRU; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.8; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/GRU; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE16; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/GRU; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE256; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/GRU; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/GRU; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE64; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/GRU; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE256; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/GRU; DATA_KIND(LSTMSequential); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); WindowSize(3); BATCH_SIZE64; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(1); WindowSize(3); BATCH_SIZE16; GAMMA0.7; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(1); WindowSize(3); BATCH_SIZE16; GAMMA0.8; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(1); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE16; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(1); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE256; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(1); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(1); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE64; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(1); WindowSize(3); BATCH_SIZE256; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(1); WindowSize(3); BATCH_SIZE64; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(4); WindowSize(3); BATCH_SIZE16; GAMMA0.7; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(4); WindowSize(3); BATCH_SIZE16; GAMMA0.8; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(4); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE16; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(4); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE256; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(4); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(4); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE64; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(4); WindowSize(3); BATCH_SIZE256; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(4); WindowSize(3); BATCH_SIZE64; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(5); WindowSize(3); BATCH_SIZE16; GAMMA0.7; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(5); WindowSize(3); BATCH_SIZE16; GAMMA0.8; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(5); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE16; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(5); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE256; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(5); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(5); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE64; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(5); WindowSize(3); BATCH_SIZE256; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(5); WindowSize(3); BATCH_SIZE64; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(PatternBased); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(None); WindowSize(3); BATCH_SIZE16; GAMMA0.7; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(PatternBased); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(None); WindowSize(3); BATCH_SIZE16; GAMMA0.8; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(PatternBased); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(None); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE16; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(PatternBased); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(None); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE256; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(PatternBased); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(None); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(PatternBased); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(None); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE64; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(PatternBased); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(None); WindowSize(3); BATCH_SIZE256; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/MLP; DATA_KIND(PatternBased); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(None); WindowSize(3); BATCH_SIZE64; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/SimpleCNNEncoder; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(1); WindowSize(3); BATCH_SIZE16; GAMMA0.7; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/SimpleCNNEncoder; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(1); WindowSize(3); BATCH_SIZE16; GAMMA0.8; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/SimpleCNNEncoder; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(1); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE16; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/SimpleCNNEncoder; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(1); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE256; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/SimpleCNNEncoder; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(1); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/SimpleCNNEncoder; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(1); WindowSize(3); BATCH_SIZE16; GAMMA0.9; REPLAY_MEMORY_SIZE64; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/SimpleCNNEncoder; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(1); WindowSize(3); BATCH_SIZE256; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/BTC-USD/SimpleCNNEncoder; DATA_KIND(AutoPatternExtraction); BEGIN_DATE(None); END_DATE(None); SPLIT_POINT(2018-01-01); StateMode(1); WindowSize(3); BATCH_SIZE64; GAMMA0.9; REPLAY_MEMORY_SIZE32; TARGET_UPDATE5; N_STEP8/model.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/batch size/plots/CNN-ATTN.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/batch size/plots/CNN-GRU.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/batch size/plots/CNN1d.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/batch size/plots/CNN2d.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/batch size/plots/DQN-candlerep.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/batch size/plots/DQN-pattern.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/batch size/plots/DQN-vanilla.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/batch size/plots/DQN-windowed.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/batch size/plots/Deep-CNN.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/batch size/plots/GRU.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/batch size/plots/MLP-candlerep.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/batch size/plots/MLP-pattern.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/batch size/plots/MLP-vanilla.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/batch size/plots/MLP-windowed.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/batch size/portfolios.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/gamma/plots/CNN-ATTN.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/gamma/plots/CNN-GRU.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/gamma/plots/CNN1d.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/gamma/plots/CNN2d.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/gamma/plots/DQN-candlerep.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/gamma/plots/DQN-pattern.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/gamma/plots/DQN-vanilla.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/gamma/plots/DQN-windowed.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/gamma/plots/Deep-CNN.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/gamma/plots/GRU.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/gamma/plots/MLP-candlerep.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/gamma/plots/MLP-pattern.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/gamma/plots/MLP-vanilla.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/gamma/plots/MLP-windowed.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/gamma/portfolios.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/replay memory size/plots/CNN-ATTN.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/replay memory size/plots/CNN-GRU.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/replay memory size/plots/CNN1d.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/replay memory size/plots/CNN2d.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/replay memory size/plots/DQN-candlerep.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/replay memory size/plots/DQN-pattern.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/replay memory size/plots/DQN-vanilla.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/replay memory size/plots/DQN-windowed.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/replay memory size/plots/Deep-CNN.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/replay memory size/plots/GRU.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/replay memory size/plots/MLP-candlerep.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/replay memory size/plots/MLP-pattern.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/replay memory size/plots/MLP-vanilla.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/replay memory size/plots/MLP-windowed.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/replay memory size/portfolios.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/paper.py" beforeDir="false" afterPath="$PROJECT_DIR$/paper.py" afterDir="false" />
+    <list default="true" id="aecc937b-6d87-4645-86ef-be7d17e37463" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,16 +33,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/src/FinRL-Tutorials&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "mcz-first-study",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "D:/src/FinRL-Tutorials",
+    "settings.editor.selected.configurable": "preferences.keymap"
   }
-}</component>
+}]]></component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="pip install torch==1.9.0+cu111 torchvision==0.10.0+cu111 torchaudio==0.9.0 -f https://download.pytorch.org/whl/torch_stable.html" />
@@ -276,6 +117,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="初始化 paper.py，学习使用原代码" />
-    <option name="LAST_COMMIT_MESSAGE" value="初始化 paper.py，学习使用原代码" />
+    <MESSAGE value="删除已训练好的对象" />
+    <MESSAGE value="向 git 添加 idea config" />
+    <option name="LAST_COMMIT_MESSAGE" value="向 git 添加 idea config" />
   </component>
 </project>
