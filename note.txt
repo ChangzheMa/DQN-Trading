@@ -1,0 +1,31 @@
+股票选择：
+AAL
+GE
+GOOGLE
+AAPL
+KSS
+HSI
+BTC/USD
+
+
+
+
+available_stock_list = [
+    '600519.XSHG',
+    '601318.XSHG',
+    '600036.XSHG',
+    '000333.XSHE',
+    '000858.XSHE',
+    '600900.XSHG',
+    '601166.XSHG',
+    '600030.XSHG',
+    '601899.XSHG',
+    '601398.XSHG',
+    '600887.XSHG',
+    '600276.XSHG',
+    '601328.XSHG',
+    '300059.XSHE',
+    '000651.XSHE',
+    '002594.XSHE',
+    '000725.XSHE'
+ ]

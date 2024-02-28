@@ -11,3 +11,6 @@ scipy==1.7.1
 seaborn==0.11.2
 six==1.16.0
 tqdm==4.62.2
+
+setuptools~=68.0.0
+jqdatasdk~=1.9.2

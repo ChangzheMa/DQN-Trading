@@ -1,6 +1,9 @@
 import warnings
 import pandas as pd
 import pickle
+
+from matplotlib import ticker
+
 from PatternDetectionInCandleStick.LabelPatterns import label_candles
 from sklearn.preprocessing import MinMaxScaler
 
@@ -132,8 +135,10 @@ class YahooFinanceDataLoader:
         df2.plot(ax=ax, color='r', label='Test')
         ax.set(xlabel='Time', ylabel='Close Price')
         ax.set_title(f'Train and Test sections of dataset {self.DATA_NAME}')
+        ax.xaxis.set_major_locator(ticker.MaxNLocator(nbins=5))
         plt.legend()
         plt.savefig(f'{Path(self.DATA_PATH).parent}/DatasetImages/{self.DATA_NAME}.jpg', dpi=300)
+        plt.clf()
 
     def save_pattern(self):
         with open(

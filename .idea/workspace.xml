@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aecc937b-6d87-4645-86ef-be7d17e37463" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/DQN-Trading.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DQN-Trading.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataLoader/DataLoader.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataLoader/DataLoader.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +18,17 @@
       <list>
         <option value="Python Script" />
       </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
     </option>
   </component>
   <component name="Git.Settings">
@@ -47,7 +58,7 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "preferences.keymap",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -56,7 +67,7 @@
       <command value="pip install torch==1.9.0+cu111 torchvision==0.10.0+cu111 torchaudio==0.9.0 -f https://download.pytorch.org/whl/torch_stable.html" />
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.script">
     <configuration name="Main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="DQN-Trading" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -79,8 +90,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="script" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DQN-Trading" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/script.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.script" />
         <item itemvalue="Python.Main" />
       </list>
     </recent_temporary>
@@ -93,44 +124,128 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1709052133038</updated>
-      <workItem from="1709052134053" duration="608000" />
+      <workItem from="1709052134053" duration="5455000" />
+      <workItem from="1709132460149" duration="9995000" />
     </task>
+    <task id="LOCAL-00001" summary="向 git 添加 idea config">
+      <option name="closed" value="true" />
+      <created>1709053345370</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1709053345370</updated>
+    </task>
+    <task id="LOCAL-00002" summary="添加数据集">
+      <option name="closed" value="true" />
+      <created>1709137636386</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1709137636386</updated>
+    </task>
+    <task id="LOCAL-00003" summary="添加数据集">
+      <option name="closed" value="true" />
+      <created>1709137989969</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1709137989969</updated>
+    </task>
+    <task id="LOCAL-00004" summary="添加数据集">
+      <option name="closed" value="true" />
+      <created>1709140683622</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1709140683622</updated>
+    </task>
+    <task id="LOCAL-00005" summary="添加数据集">
+      <option name="closed" value="true" />
+      <created>1709141294281</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1709141294281</updated>
+    </task>
+    <task id="LOCAL-00006" summary="添加数据集">
+      <option name="closed" value="true" />
+      <created>1709141314293</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1709141314293</updated>
+    </task>
+    <task id="LOCAL-00007" summary="添加数据集">
+      <option name="closed" value="true" />
+      <created>1709141347334</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1709141347334</updated>
+    </task>
+    <task id="LOCAL-00008" summary="添加数据集">
+      <option name="closed" value="true" />
+      <created>1709141393383</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1709141393383</updated>
+    </task>
+    <task id="LOCAL-00009" summary="添加数据集">
+      <option name="closed" value="true" />
+      <created>1709141405416</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1709141405416</updated>
+    </task>
+    <task id="LOCAL-00010" summary="添加数据集">
+      <option name="closed" value="true" />
+      <created>1709141419970</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1709141419970</updated>
+    </task>
+    <task id="LOCAL-00011" summary="添加数据集">
+      <option name="closed" value="true" />
+      <created>1709141631707</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1709141631707</updated>
+    </task>
+    <task id="LOCAL-00012" summary="添加数据集">
+      <option name="closed" value="true" />
+      <created>1709141706104</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1709141706104</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="OPEN_GENERIC_TABS">
-      <map>
-        <entry key="1c2feb01-3d4f-4858-9612-64f3b41e35db" value="TOOL_WINDOW" />
-      </map>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
     </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
-        <entry key="1c2feb01-3d4f-4858-9612-64f3b41e35db">
+        <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="HEAD" />
-                      </list>
-                    </value>
-                  </entry>
-                  <entry key="roots">
-                    <value>
-                      <list>
-                        <option value="$PROJECT_DIR$" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
@@ -140,6 +255,11 @@
     <MESSAGE value="初始化 paper.py，学习使用原代码" />
     <MESSAGE value="删除已训练好的对象" />
     <MESSAGE value="向 git 添加 idea config" />
-    <option name="LAST_COMMIT_MESSAGE" value="向 git 添加 idea config" />
+    <MESSAGE value="添加数据集" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加数据集" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/DQN_Trading$Main.coverage" NAME="Main Coverage Results" MODIFIED="1709053648299" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/DQN_Trading$script.coverage" NAME="script Coverage Results" MODIFIED="1709142459868" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
