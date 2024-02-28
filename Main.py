@@ -26,7 +26,7 @@ import datetime as dt
 from utils import save_pkl, load_pkl
 
 parser = argparse.ArgumentParser(description='DQN-Trader arguments')
-parser.add_argument('--dataset-name', default="BTC-USD",
+parser.add_argument('--dataset-name', default="600030",
                     help='Name of the data inside the Data folder')
 parser.add_argument('--nep', type=int, default=30,
                     help='Number of episodes')
@@ -601,12 +601,12 @@ if __name__ == '__main__':
     start_time = dt.datetime.now()
     print(f"--------- total start time: {start_time}")
 
-    # gamma_list = [0.9, 0.8, 0.7]
-    # batch_size_list = [16, 64, 256]
-    # replay_memory_size_list = [16, 64, 256]
-    gamma_list = [0.9]
-    batch_size_list = [16]
-    replay_memory_size_list = [32]
+    gamma_list = [0.9, 0.8, 0.7]
+    batch_size_list = [16, 64, 256]
+    replay_memory_size_list = [16, 64, 256]
+    # gamma_list = [0.9]
+    # batch_size_list = [16]
+    # replay_memory_size_list = [32]
     n_step = 8
     window_size = args.window_size
     dataset_name = args.dataset_name
@@ -652,57 +652,57 @@ if __name__ == '__main__':
     run.save_experiment()
     print(f"--------- test gamma end time: {dt.datetime.now()}")
 
-    # print(f"--------- test batch-size start time: {dt.datetime.now()}")
-    # # test batch-size
-    # run = SensitivityRun(
-    #     dataset_name,
-    #     gamma_default,
-    #     batch_size_default,
-    #     replay_memory_size_default,
-    #     feature_size,
-    #     target_update,
-    #     n_episodes,
-    #     n_step,
-    #     window_size,
-    #     device,
-    #     evaluation_parameter='batch size',
-    #     transaction_cost=0)
-    #
-    # for batch_size in batch_size_list:
-    #     run.batch_size = batch_size
-    #     run.reset()
-    #     run.train()
-    #     run.evaluate_sensitivity()
-    #     # pbar.update(1)
-    #
-    # run.save_experiment()
-    # print(f"--------- test batch-size end time: {dt.datetime.now()}")
-    #
-    # print(f"--------- test replay memory start time: {dt.datetime.now()}")
-    # # test replay memory size
-    # run = SensitivityRun(
-    #     dataset_name,
-    #     gamma_default,
-    #     batch_size_default,
-    #     replay_memory_size_default,
-    #     feature_size,
-    #     target_update,
-    #     n_episodes,
-    #     n_step,
-    #     window_size,
-    #     device,
-    #     evaluation_parameter='replay memory size',
-    #     transaction_cost=0)
-    #
-    # for replay_memory_size in replay_memory_size_list:
-    #     run.replay_memory_size = replay_memory_size
-    #     run.reset()
-    #     run.train()
-    #     run.evaluate_sensitivity()
-    #     # pbar.update(1)
-    #
-    # run.save_experiment()
-    # print(f"--------- test replay memory end time: {dt.datetime.now()}")
+    print(f"--------- test batch-size start time: {dt.datetime.now()}")
+    # test batch-size
+    run = SensitivityRun(
+        dataset_name,
+        gamma_default,
+        batch_size_default,
+        replay_memory_size_default,
+        feature_size,
+        target_update,
+        n_episodes,
+        n_step,
+        window_size,
+        device,
+        evaluation_parameter='batch size',
+        transaction_cost=0)
+
+    for batch_size in batch_size_list:
+        run.batch_size = batch_size
+        run.reset()
+        run.train()
+        run.evaluate_sensitivity()
+        # pbar.update(1)
+
+    run.save_experiment()
+    print(f"--------- test batch-size end time: {dt.datetime.now()}")
+
+    print(f"--------- test replay memory start time: {dt.datetime.now()}")
+    # test replay memory size
+    run = SensitivityRun(
+        dataset_name,
+        gamma_default,
+        batch_size_default,
+        replay_memory_size_default,
+        feature_size,
+        target_update,
+        n_episodes,
+        n_step,
+        window_size,
+        device,
+        evaluation_parameter='replay memory size',
+        transaction_cost=0)
+
+    for replay_memory_size in replay_memory_size_list:
+        run.replay_memory_size = replay_memory_size
+        run.reset()
+        run.train()
+        run.evaluate_sensitivity()
+        # pbar.update(1)
+
+    run.save_experiment()
+    print(f"--------- test replay memory end time: {dt.datetime.now()}")
 
     # pbar.close()
     print(f"--------- total end time: {dt.datetime.now()}, time used: {dt.datetime.now() - start_time}")
