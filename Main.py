@@ -84,7 +84,48 @@ DATA_LOADERS = {
 
     'AAL': YahooFinanceDataLoader('AAL',
                                   split_point='2018-01-01',
-                                  load_from_file=True)
+                                  load_from_file=True),
+
+
+    '000651': YahooFinanceDataLoader('000651',
+                                          split_point='2020-01-01',
+                                          load_from_file=True),
+
+    '000725': YahooFinanceDataLoader('000725',
+                                          split_point='2020-01-01',
+                                          load_from_file=True),
+
+    '000858': YahooFinanceDataLoader('000858',
+                                          split_point='2020-01-01',
+                                          load_from_file=True),
+
+    '600030': YahooFinanceDataLoader('600030',
+                                          split_point='2020-01-01',
+                                          load_from_file=True),
+
+    '600036': YahooFinanceDataLoader('600036',
+                                          split_point='2020-01-01',
+                                          load_from_file=True),
+
+    '600276': YahooFinanceDataLoader('600276',
+                                          split_point='2020-01-01',
+                                          load_from_file=True),
+
+    '600519': YahooFinanceDataLoader('600519',
+                                          split_point='2020-01-01',
+                                          load_from_file=True),
+
+    '600887': YahooFinanceDataLoader('600887',
+                                          split_point='2020-01-01',
+                                          load_from_file=True),
+
+    '600900': YahooFinanceDataLoader('600900',
+                                          split_point='2020-01-01',
+                                          load_from_file=True),
+
+    '601398': YahooFinanceDataLoader('601398',
+                                          split_point='2020-01-01',
+                                          load_from_file=True)
 }
 
 
@@ -665,4 +706,3 @@ if __name__ == '__main__':
 
     # pbar.close()
     print(f"--------- total end time: {dt.datetime.now()}, time used: {dt.datetime.now() - start_time}")
-

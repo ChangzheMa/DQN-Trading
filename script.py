@@ -52,6 +52,7 @@ day_data = get_bars(available_stock_list, DATA_COUNT, unit='1d',
 grouped = day_data.groupby(level=0)
 
 for stock_code, group in grouped:
+    stock_code = stock_code[:6]
     target_dir = f"Data/{stock_code}"
     if not os.path.exists(target_dir):
         os.makedirs(target_dir)
