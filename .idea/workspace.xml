@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aecc937b-6d87-4645-86ef-be7d17e37463" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BaseLineAndTest.py" afterDir="false" />
+    <list default="true" id="aecc937b-6d87-4645-86ef-be7d17e37463" name="Changes" comment="添加baseline方法">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BaseLineAndTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/BaseLineAndTest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Main.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +77,26 @@
       <command value="pip install torch==1.9.0+cu111 torchvision==0.10.0+cu111 torchaudio==0.9.0 -f https://download.pytorch.org/whl/torch_stable.html" />
     </option>
   </component>
-  <component name="RunManager" selected="Python.Main">
+  <component name="RunManager" selected="Python.BaseLineAndTest">
+    <configuration name="BaseLineAndTest" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DQN-Trading" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/BaseLineAndTest.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="GetOHLC" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="DQN-Trading" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -117,6 +137,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.BaseLineAndTest" />
         <item itemvalue="Python.Main" />
         <item itemvalue="Python.GetOHLC" />
       </list>
@@ -131,7 +152,7 @@
       <option name="presentableId" value="Default" />
       <updated>1709052133038</updated>
       <workItem from="1709052134053" duration="5455000" />
-      <workItem from="1709132460149" duration="29789000" />
+      <workItem from="1709132460149" duration="39772000" />
     </task>
     <task id="LOCAL-00001" summary="向 git 添加 idea config">
       <option name="closed" value="true" />
@@ -285,7 +306,63 @@
       <option name="project" value="LOCAL" />
       <updated>1709225144236</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="添加baseline方法">
+      <option name="closed" value="true" />
+      <created>1709227596800</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1709227596800</updated>
+    </task>
+    <task id="LOCAL-00021" summary="添加baseline方法">
+      <option name="closed" value="true" />
+      <created>1709228668901</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1709228668901</updated>
+    </task>
+    <task id="LOCAL-00022" summary="添加baseline方法">
+      <option name="closed" value="true" />
+      <created>1709231865170</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1709231865170</updated>
+    </task>
+    <task id="LOCAL-00023" summary="添加baseline方法">
+      <option name="closed" value="true" />
+      <created>1709232387836</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1709232387836</updated>
+    </task>
+    <task id="LOCAL-00024" summary="添加baseline方法">
+      <option name="closed" value="true" />
+      <created>1709233813118</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1709233813118</updated>
+    </task>
+    <task id="LOCAL-00025" summary="添加baseline方法">
+      <option name="closed" value="true" />
+      <created>1709234043467</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1709234043467</updated>
+    </task>
+    <task id="LOCAL-00026" summary="添加baseline方法">
+      <option name="closed" value="true" />
+      <created>1709235623484</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1709235623484</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -322,10 +399,12 @@
     <MESSAGE value="测试我们的数据集" />
     <MESSAGE value="获取 alpha101 指标" />
     <MESSAGE value="添加笔记" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加笔记" />
+    <MESSAGE value="添加baseline方法" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加baseline方法" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/DQN_Trading$Main.coverage" NAME="Main Coverage Results" MODIFIED="1709053648299" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/DQN_Trading$BaseLineAndTest.coverage" NAME="BaseLineAndTest Coverage Results" MODIFIED="1709237235469" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/DQN_Trading$script.coverage" NAME="script Coverage Results" MODIFIED="1709143437479" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

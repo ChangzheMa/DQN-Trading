@@ -1,4 +1,6 @@
 # Importing DataLoaders for each model. These models include rule-based, vanilla DQN and encoder-decoder DQN.
+import datetime
+
 from DataLoader.DataLoader import YahooFinanceDataLoader
 from DataLoader.DataForPatternBasedAgent import DataForPatternBasedAgent
 from DataLoader.DataAutoPatternExtractionAgent import DataAutoPatternExtractionAgent
@@ -23,6 +25,8 @@ import argparse
 # from tqdm import tqdm
 import os
 import datetime as dt
+
+from PatternDetectionInCandleStick.Evaluation import Evaluation
 from utils import save_pkl, load_pkl
 
 parser = argparse.ArgumentParser(description='DQN-Trader arguments')
@@ -213,7 +217,7 @@ class SensitivityRun:
             # 'DQN-pattern': {},
             # 'DQN-vanilla': {},
             # 'DQN-candlerep': {},
-            # 'DQN-windowed': {},
+            'DQN-windowed': {},
             # 'MLP-pattern': {},
             # 'MLP-vanilla': {},
             # 'MLP-candlerep': {},
@@ -222,8 +226,9 @@ class SensitivityRun:
             'CNN2d': {},
             'GRU': {},
             # 'Deep-CNN': {},
-            # 'CNN-GRU': {},
-            # 'CNN-ATTN': {}
+            'CNN-GRU': {},
+            # 'CNN-ATTN': {},
+            'BAH': {}
         }
 
     def reset(self):
@@ -518,7 +523,7 @@ class SensitivityRun:
         # self.dqn_pattern.train(self.n_episodes)
         # self.dqn_vanilla.train(self.n_episodes)
         # self.dqn_candle_rep.train(self.n_episodes)
-        # self.dqn_windowed.train(self.n_episodes)
+        self.dqn_windowed.train(self.n_episodes)
         # self.mlp_pattern.train(self.n_episodes)
         # self.mlp_vanilla.train(self.n_episodes)
         # self.mlp_candle_rep.train(self.n_episodes)
@@ -527,7 +532,7 @@ class SensitivityRun:
         self.cnn2d.train(self.n_episodes)
         self.gru.train(self.n_episodes)
         # self.deep_cnn.train(self.n_episodes)
-        # self.cnn_gru.train(self.n_episodes)
+        self.cnn_gru.train(self.n_episodes)
         # self.cnn_attn.train(self.n_episodes)
 
     def evaluate_sensitivity(self):
@@ -542,7 +547,7 @@ class SensitivityRun:
         # self.test_portfolios['DQN-pattern'][key] = self.dqn_pattern.test().get_daily_portfolio_value()
         # self.test_portfolios['DQN-vanilla'][key] = self.dqn_vanilla.test().get_daily_portfolio_value()
         # self.test_portfolios['DQN-candlerep'][key] = self.dqn_candle_rep.test().get_daily_portfolio_value()
-        # self.test_portfolios['DQN-windowed'][key] = self.dqn_windowed.test().get_daily_portfolio_value()
+        self.test_portfolios['DQN-windowed'][key] = self.dqn_windowed.test().get_daily_portfolio_value()
         # self.test_portfolios['MLP-pattern'][key] = self.mlp_pattern.test().get_daily_portfolio_value()
         # self.test_portfolios['MLP-vanilla'][key] = self.mlp_vanilla.test().get_daily_portfolio_value()
         # self.test_portfolios['MLP-candlerep'][key] = self.mlp_candle_rep.test().get_daily_portfolio_value()
@@ -551,7 +556,7 @@ class SensitivityRun:
         self.test_portfolios['CNN2d'][key] = self.cnn2d.test().get_daily_portfolio_value()
         self.test_portfolios['GRU'][key] = self.gru.test().get_daily_portfolio_value()
         # self.test_portfolios['Deep-CNN'][key] = self.deep_cnn.test().get_daily_portfolio_value()
-        # self.test_portfolios['CNN-GRU'][key] = self.cnn_gru.test().get_daily_portfolio_value()
+        self.test_portfolios['CNN-GRU'][key] = self.cnn_gru.test().get_daily_portfolio_value()
         # self.test_portfolios['CNN-ATTN'][key] = self.cnn_attn.test().get_daily_portfolio_value()
 
     def plot_and_save_sensitivity(self):
@@ -595,6 +600,57 @@ class SensitivityRun:
         self.plot_and_save_sensitivity()
         self.save_portfolios()
 
+    def evaluate_models(self):
+        self.test_portfolios['DQN-windowed'] = self.dqn_windowed.test().get_daily_portfolio_value()
+        self.test_portfolios['MLP-windowed'] = self.mlp_windowed.test().get_daily_portfolio_value()
+        self.test_portfolios['CNN2d'] = self.cnn2d.test().get_daily_portfolio_value()
+        self.test_portfolios['GRU'] = self.gru.test().get_daily_portfolio_value()
+        self.test_portfolios['CNN-GRU'] = self.cnn_gru.test().get_daily_portfolio_value()
+        self.evaluate_bah_model()
+
+    def evaluate_bah_model(self):
+        self.dataTest_patternBased.data[self.dataTest_patternBased.action_name] = 'buy'
+        ev_bah = Evaluation(self.dataTest_patternBased.data, self.dataTest_patternBased.action_name, 1000)
+        self.test_portfolios['BAH'] = ev_bah.get_daily_portfolio_value()
+
+    def save_models_compare(self):
+        self.plot_and_save_models_compare()
+        self.save_portfolios()
+        pass
+
+    def plot_and_save_models_compare(self):
+        plot_path = os.path.join(self.experiment_path, 'plots')
+        if not os.path.exists(plot_path):
+            os.makedirs(plot_path)
+
+        sns.set(rc={'figure.figsize': (15, 7)})
+        sns.set_palette(sns.color_palette("Paired", 15))
+
+        first = True
+        ax = None
+        for model_name in self.test_portfolios.keys():
+            profit_percentage = [
+                (self.test_portfolios[model_name][i] - self.test_portfolios[model_name][0]) /
+                self.test_portfolios[model_name][0] * 100
+                for i in range(len(self.test_portfolios[model_name]))]
+            difference = len(self.test_portfolios[model_name]) - len(self.data_loader.data_test_with_date)
+            df = pd.DataFrame({'date': self.data_loader.data_test_with_date.index,
+                               'portfolio': profit_percentage[difference:]})
+            if not first:
+                df.plot(ax=ax, x='date', y='portfolio', label=model_name)
+            else:
+                ax = df.plot(x='date', y='portfolio', label=model_name)
+                first = False
+
+        if ax is not None:
+            ax.set(xlabel='Time', ylabel='%Rate of Return')
+            ax.set_title(f'Compare Models Return For {self.dataset_name}')
+            plt.legend()
+            fig_file = os.path.join(plot_path, f'{self.dataset_name}.jpg')
+            plt.savefig(fig_file, dpi=300)
+
+        pass
+
 
 if __name__ == '__main__':
     start_time = dt.datetime.now()
@@ -604,107 +660,58 @@ if __name__ == '__main__':
     batch_size_list = [16, 64, 256]
     replay_memory_size_list = [16, 64, 256]
 
-    n_step = 8
-    window_size = args.window_size
+    n_step = 8  # 多步时间差分
+    window_size = args.window_size  # 默认值设置为15，根据论文里来的
     dataset_name = args.dataset_name
-    n_episodes = args.nep
+    n_episodes = args.nep   # 默认30
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"torch version: {torch.__version__}")
     print(f"cal device: {device}")
 
-    feature_size = 64
-    target_update = 5
+    feature_size = 64   # 编码器的输出大小
+    target_update = 5   # 5 次后更新目标网络
 
     # gamma_default = 0.9
     # batch_size_default = 16
     # replay_memory_size_default = 32
 
     # 论文中的默认值
-    gamma_default = 0.9
-    batch_size_default = 10
-    replay_memory_size_default = 20
+    gamma_default = 0.9     # 奖励衰减
+    batch_size_default = 10     # mini-batch 方法的 batch 大小
+    replay_memory_size_default = 20     # 经验回放组大小
 
-    # pbar = tqdm(len(gamma_list) + len(replay_memory_size_list) + len(batch_size_list))
+    data_list = [
+        '000651',
+        '000725',
+        '000858',
+        '600030',
+        '600036',
+        '600276',
+        '600519',
+        '600887',
+        '600900',
+        '601398'
+    ]
 
-    # test gamma
-
-    print(f"--------- test gamma start time: {dt.datetime.now()}")
-    run = SensitivityRun(
-        dataset_name,
-        gamma_default,
-        batch_size_default,
-        replay_memory_size_default,
-        feature_size,
-        target_update,
-        n_episodes,
-        n_step,
-        window_size,
-        device,
-        evaluation_parameter='gamma',
-        transaction_cost=0)
-
-    for gamma in gamma_list:
-        run.gamma = gamma
+    for dataset_name in data_list:
+        print(str(datetime.datetime.now()) + ' : ' + dataset_name)
+        run = SensitivityRun(
+            dataset_name,
+            gamma_default,
+            batch_size_default,
+            replay_memory_size_default,
+            feature_size,
+            target_update,
+            n_episodes,
+            n_step,
+            window_size,
+            device,
+            evaluation_parameter='ModelCompare',
+            transaction_cost=0
+        )
         run.reset()
         run.train()
-        run.evaluate_sensitivity()
-        # pbar.update(1)
+        run.evaluate_models()
+        run.save_models_compare()
 
-    run.save_experiment()
-    print(f"--------- test gamma end time: {dt.datetime.now()}")
-
-    print(f"--------- test batch-size start time: {dt.datetime.now()}")
-    # test batch-size
-    run = SensitivityRun(
-        dataset_name,
-        gamma_default,
-        batch_size_default,
-        replay_memory_size_default,
-        feature_size,
-        target_update,
-        n_episodes,
-        n_step,
-        window_size,
-        device,
-        evaluation_parameter='batch size',
-        transaction_cost=0)
-
-    for batch_size in batch_size_list:
-        run.batch_size = batch_size
-        run.reset()
-        run.train()
-        run.evaluate_sensitivity()
-        # pbar.update(1)
-
-    run.save_experiment()
-    print(f"--------- test batch-size end time: {dt.datetime.now()}")
-
-    print(f"--------- test replay memory start time: {dt.datetime.now()}")
-    # test replay memory size
-    run = SensitivityRun(
-        dataset_name,
-        gamma_default,
-        batch_size_default,
-        replay_memory_size_default,
-        feature_size,
-        target_update,
-        n_episodes,
-        n_step,
-        window_size,
-        device,
-        evaluation_parameter='replay memory size',
-        transaction_cost=0)
-
-    for replay_memory_size in replay_memory_size_list:
-        run.replay_memory_size = replay_memory_size
-        run.reset()
-        run.train()
-        run.evaluate_sensitivity()
-        # pbar.update(1)
-
-    run.save_experiment()
-    print(f"--------- test replay memory end time: {dt.datetime.now()}")
-
-    # pbar.close()
-    print(f"--------- total end time: {dt.datetime.now()}, time used: {dt.datetime.now() - start_time}")
