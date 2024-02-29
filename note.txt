@@ -29,3 +29,17 @@ available_stock_list = [
     '002594.XSHE',
     '000725.XSHE'
  ]
+
+
+
+优化方法：
+Adam optimizer
+
+mini-batch：
+batch_size=10
+
+replay_memory_size=20
+
+
+
+
