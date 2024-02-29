@@ -6,6 +6,26 @@ import datetime
 
 from DataLoader.DataLoader import YahooFinanceDataLoader
 
+'''
+获取上证股票的原始数据并处理成 600519.csv 的格式保存，供 DataLoader 使用
+最终从A股权重最高的20只股票中选择了10只
+
+股票列表：
+available_stock_list = [
+    '000651',
+    '000725',
+    '000858',
+    '600030',
+    '600036',
+    '600276',
+    '600519',
+    '600887',
+    '600900',
+    '601398'
+]
+
+'''
+
 auth('18612981484', 'Mcz19890521...')
 print(get_query_count())
 

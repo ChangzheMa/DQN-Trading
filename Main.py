@@ -26,7 +26,7 @@ import datetime as dt
 from utils import save_pkl, load_pkl
 
 parser = argparse.ArgumentParser(description='DQN-Trader arguments')
-parser.add_argument('--dataset-name', default="600030",
+parser.add_argument('--dataset-name', default="600276",
                     help='Name of the data inside the Data folder')
 parser.add_argument('--nep', type=int, default=30,
                     help='Number of episodes')
