@@ -85,15 +85,15 @@ class BaseTrain:
                                  f'Results/{self.DATASET_NAME}/'
                                  f'{self.model_kind}; '
                                  f'DATA_KIND({self.data_train.data_kind}); '
-                                 f'BEGIN_DATE({self.begin_date}); '
-                                 f'END_DATE({self.end_date}); '
-                                 f'SPLIT_POINT({self.split_point}); '
+                                 f'BEGIN({self.begin_date}); '
+                                 f'END({self.end_date}); '
+                                 f'SPLIT({self.split_point}); '
                                  f'StateMode({self.state_mode}); '
-                                 f'WindowSize({self.window_size}); '
+                                 f'winSize({self.window_size}); '
                                  f'BATCH_SIZE{self.BATCH_SIZE}; '
                                  f'GAMMA{self.GAMMA}; '
-                                 f'REPLAY_MEMORY_SIZE{self.ReplayMemorySize}; '
-                                 f'TARGET_UPDATE{self.TARGET_UPDATE}; '
+                                 f'R_MEMORY_SIZE{self.ReplayMemorySize}; '
+                                 f'T_UPDATE{self.TARGET_UPDATE}; '
                                  f'N_STEP{self.n_step}')
 
         if not os.path.exists(self.PATH):

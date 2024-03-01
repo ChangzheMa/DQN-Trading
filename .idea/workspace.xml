@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aecc937b-6d87-4645-86ef-be7d17e37463" name="Changes" comment="添加baseline方法">
+    <list default="true" id="aecc937b-6d87-4645-86ef-be7d17e37463" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BaseLineAndTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/BaseLineAndTest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Main.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeepRLAgent/BaseTrain.py" beforeDir="false" afterPath="$PROJECT_DIR$/DeepRLAgent/BaseTrain.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +152,7 @@
       <option name="presentableId" value="Default" />
       <updated>1709052133038</updated>
       <workItem from="1709052134053" duration="5455000" />
-      <workItem from="1709132460149" duration="39772000" />
+      <workItem from="1709132460149" duration="41783000" />
     </task>
     <task id="LOCAL-00001" summary="向 git 添加 idea config">
       <option name="closed" value="true" />
@@ -362,7 +362,23 @@
       <option name="project" value="LOCAL" />
       <updated>1709235623484</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="添加baseline方法">
+      <option name="closed" value="true" />
+      <created>1709237428582</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1709237428582</updated>
+    </task>
+    <task id="LOCAL-00028" summary="添加baseline方法">
+      <option name="closed" value="true" />
+      <created>1709237687347</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1709237687347</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

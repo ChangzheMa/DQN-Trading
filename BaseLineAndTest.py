@@ -682,16 +682,13 @@ if __name__ == '__main__':
     replay_memory_size_default = 20     # 经验回放组大小
 
     data_list = [
-        '000651',
-        '000725',
-        '000858',
-        '600030',
-        '600036',
-        '600276',
-        '600519',
-        '600887',
-        '600900',
-        '601398'
+        'AAPL',
+        'GOOGL',
+        'GE',
+        'AAL',
+        'KSS',
+        'HSI',
+        'BTC-USD'
     ]
 
     for dataset_name in data_list:
