@@ -79,7 +79,11 @@ class YahooFinanceDataLoader:
             self.data_test.reset_index(drop=True, inplace=True)
             # self.data.reset_index(drop=True, inplace=True)
         else:
-            self.data = pd.read_csv(f'{self.DATA_PATH}data_processed.csv')
+            if os.path.exists(f'{self.DATA_PATH}alpha101.csv'):
+                self.data = pd.read_csv(f'{self.DATA_PATH}alpha101.csv')
+            else:
+                self.data = pd.read_csv(f'{self.DATA_PATH}data_processed.csv')
+
             self.data.set_index('Date', inplace=True)
             labels = list(self.data.label)
             labels = [ast.literal_eval(l) for l in labels]

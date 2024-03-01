@@ -236,7 +236,6 @@ class BaseTrain:
         :@return returns an Evaluation object to have access to different evaluation metrics.
         """
         data = self.data_train if test_type == 'train' else self.data_test
-
         self.test_net.load_state_dict(torch.load(self.model_dir))
         self.test_net.to(device)
 

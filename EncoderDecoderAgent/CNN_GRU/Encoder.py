@@ -4,7 +4,7 @@ import torch.nn as nn
 
 class Encoder(nn.Module):
 
-    def __init__(self, window_size, hidden_size, device):
+    def __init__(self, window_size, hidden_size, device, extension_size=0):
         """
 
         :param state_size: we give OHLC as input to the network
@@ -17,7 +17,7 @@ class Encoder(nn.Module):
             nn.Conv1d(window_size, window_size, 3),
             nn.Conv1d(window_size, window_size, 2)
         )
-        self.gru = nn.GRU(1, hidden_size)
+        self.gru = nn.GRU(1 + extension_size, hidden_size)
 
     def forward(self, x):
         """

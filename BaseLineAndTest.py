@@ -1,5 +1,6 @@
 # Importing DataLoaders for each model. These models include rule-based, vanilla DQN and encoder-decoder DQN.
 import datetime
+import math
 
 from DataLoader.DataLoader import YahooFinanceDataLoader
 from DataLoader.DataForPatternBasedAgent import DataForPatternBasedAgent
@@ -145,7 +146,8 @@ class SensitivityRun:
                  window_size,
                  device,
                  evaluation_parameter='gamma',
-                 transaction_cost=0):
+                 transaction_cost=0,
+                 alpha_extension=None):
         """
 
         @param data_loader:
@@ -176,6 +178,7 @@ class SensitivityRun:
         self.window_size = window_size
         self.device = device
         self.evaluation_parameter = evaluation_parameter
+        self.alpha_extension = alpha_extension
         # The state mode is only for autoPatternExtractionAgent. Therefore, for pattern inputs, the state mode would be
         # set to None, because it can be recovered from the name of the data loader (e.g. dataTrain_patternBased).
 
@@ -190,22 +193,31 @@ class SensitivityRun:
         self.dataTrain_autoPatternExtractionAgent_candle_rep = None
         self.dataTest_autoPatternExtractionAgent_candle_rep = None
         self.dataTrain_autoPatternExtractionAgent_windowed = None
+        self.dataTrain_autoPatternExtractionAgent_windowed_ext = None
         self.dataTest_autoPatternExtractionAgent_windowed = None
+        self.dataTest_autoPatternExtractionAgent_windowed_ext = None
         self.dataTrain_sequential = None
+        self.dataTrain_sequential_ext = None
         self.dataTest_sequential = None
+        self.dataTest_sequential_ext = None
         self.dqn_pattern = None
         self.dqn_vanilla = None
         self.dqn_candle_rep = None
         self.dqn_windowed = None
+        self.dqn_windowed_ext = None
         self.mlp_pattern = None
         self.mlp_vanilla = None
         self.mlp_candle_rep = None
         self.mlp_windowed = None
+        self.mlp_windowed_ext = None
         self.cnn1d = None
         self.cnn2d = None
+        self.cnn2d_ext = None
         self.gru = None
+        self.gru_ext = None
         self.deep_cnn = None
         self.cnn_gru = None
+        self.cnn_gru_ext = None
         self.cnn_attn = None
         self.experiment_path = os.path.join(os.path.abspath(os.getcwd()),
                                             'Results/' + self.evaluation_parameter + '/')
@@ -218,15 +230,20 @@ class SensitivityRun:
             # 'DQN-vanilla': {},
             # 'DQN-candlerep': {},
             'DQN-windowed': {},
+            'DQN-windowed-ext': {},
             # 'MLP-pattern': {},
             # 'MLP-vanilla': {},
             # 'MLP-candlerep': {},
             'MLP-windowed': {},
+            'MLP-windowed-ext': {},
             # 'CNN1d': {},
             'CNN2d': {},
+            'CNN2d-ext': {},
             'GRU': {},
+            'GRU-ext': {},
             # 'Deep-CNN': {},
             'CNN-GRU': {},
+            'CNN-GRU-ext': {},
             # 'CNN-ATTN': {},
             'BAH': {}
         }
@@ -314,6 +331,27 @@ class SensitivityRun:
                                            self.window_size,
                                            self.transaction_cost)
 
+        self.dataTrain_autoPatternExtractionAgent_windowed_ext = \
+            DataAutoPatternExtractionAgent(self.data_loader.data_train,
+                                           self.STATE_MODE_WINDOWED,
+                                           'action_auto_extraction_windowed_ext',
+                                           self.device,
+                                           self.gamma, self.n_step,
+                                           self.batch_size,
+                                           self.window_size,
+                                           self.transaction_cost,
+                                           alpha_extension=self.alpha_extension)
+        self.dataTest_autoPatternExtractionAgent_windowed_ext = \
+            DataAutoPatternExtractionAgent(self.data_loader.data_test,
+                                           self.STATE_MODE_WINDOWED,
+                                           'action_auto_extraction_windowed_ext',
+                                           self.device,
+                                           self.gamma, self.n_step,
+                                           self.batch_size,
+                                           self.window_size,
+                                           self.transaction_cost,
+                                           alpha_extension=self.alpha_extension)
+
         self.dataTrain_sequential = DataSequential(self.data_loader.data_train,
                                                    'action_sequential',
                                                    self.device,
@@ -331,6 +369,26 @@ class SensitivityRun:
                                                   self.batch_size,
                                                   self.window_size,
                                                   self.transaction_cost)
+
+        self.dataTrain_sequential_ext = DataSequential(self.data_loader.data_train,
+                                                       'action_sequential',
+                                                       self.device,
+                                                       self.gamma,
+                                                       self.n_step,
+                                                       self.batch_size,
+                                                       self.window_size,
+                                                       self.transaction_cost,
+                                                       alpha_extension=self.alpha_extension)
+
+        self.dataTest_sequential_ext = DataSequential(self.data_loader.data_test,
+                                                      'action_sequential',
+                                                      self.device,
+                                                      self.gamma,
+                                                      self.n_step,
+                                                      self.batch_size,
+                                                      self.window_size,
+                                                      self.transaction_cost,
+                                                      alpha_extension=self.alpha_extension)
 
     def load_agents(self):
         self.dqn_pattern = DeepRL(self.data_loader,
@@ -384,6 +442,19 @@ class SensitivityRun:
                                    ReplayMemorySize=self.replay_memory_size,
                                    TARGET_UPDATE=self.target_update,
                                    n_step=self.n_step)
+
+        self.dqn_windowed_ext = DeepRL(self.data_loader,
+                                       self.dataTrain_autoPatternExtractionAgent_windowed_ext,
+                                       self.dataTest_autoPatternExtractionAgent_windowed_ext,
+                                       self.dataset_name,
+                                       self.STATE_MODE_WINDOWED,
+                                       self.window_size,
+                                       self.transaction_cost,
+                                       BATCH_SIZE=self.batch_size,
+                                       GAMMA=self.gamma,
+                                       ReplayMemorySize=self.replay_memory_size,
+                                       TARGET_UPDATE=self.target_update,
+                                       n_step=self.n_step)
 
         self.mlp_pattern = SimpleMLP(self.data_loader,
                                      self.dataTrain_patternBased,
@@ -441,6 +512,20 @@ class SensitivityRun:
                                       TARGET_UPDATE=self.target_update,
                                       n_step=self.n_step)
 
+        self.mlp_windowed_ext = SimpleMLP(self.data_loader,
+                                          self.dataTrain_autoPatternExtractionAgent_windowed_ext,
+                                          self.dataTest_autoPatternExtractionAgent_windowed_ext,
+                                          self.dataset_name,
+                                          self.STATE_MODE_WINDOWED,
+                                          self.window_size,
+                                          self.transaction_cost,
+                                          self.feature_size,
+                                          BATCH_SIZE=self.batch_size,
+                                          GAMMA=self.gamma,
+                                          ReplayMemorySize=self.replay_memory_size,
+                                          TARGET_UPDATE=self.target_update,
+                                          n_step=self.n_step)
+
         self.cnn1d = SimpleCNN(self.data_loader,
                                self.dataTrain_autoPatternExtractionAgent,
                                self.dataTest_autoPatternExtractionAgent,
@@ -468,6 +553,19 @@ class SensitivityRun:
                            n_step=self.n_step,
                            window_size=self.window_size)
 
+        self.cnn2d_ext = CNN2d(self.data_loader,
+                               self.dataTrain_sequential_ext,
+                               self.dataTest_sequential_ext,
+                               self.dataset_name,
+                               self.feature_size,
+                               self.transaction_cost,
+                               BATCH_SIZE=self.batch_size,
+                               GAMMA=self.gamma,
+                               ReplayMemorySize=self.replay_memory_size,
+                               TARGET_UPDATE=self.target_update,
+                               n_step=self.n_step,
+                               window_size=self.window_size)
+
         self.gru = GRU(self.data_loader,
                        self.dataTrain_sequential,
                        self.dataTest_sequential,
@@ -480,6 +578,19 @@ class SensitivityRun:
                        TARGET_UPDATE=self.target_update,
                        n_step=self.n_step,
                        window_size=self.window_size)
+
+        self.gru_ext = GRU(self.data_loader,
+                           self.dataTrain_sequential_ext,
+                           self.dataTest_sequential_ext,
+                           self.dataset_name,
+                           self.transaction_cost,
+                           self.feature_size,
+                           BATCH_SIZE=self.batch_size,
+                           GAMMA=self.gamma,
+                           ReplayMemorySize=self.replay_memory_size,
+                           TARGET_UPDATE=self.target_update,
+                           n_step=self.n_step,
+                           window_size=self.window_size)
 
         self.deep_cnn = CNN(self.data_loader,
                             self.dataTrain_sequential,
@@ -506,6 +617,19 @@ class SensitivityRun:
                                n_step=self.n_step,
                                window_size=self.window_size)
 
+        self.cnn_gru_ext = CNN_GRU(self.data_loader,
+                                   self.dataTrain_sequential_ext,
+                                   self.dataTest_sequential_ext,
+                                   self.dataset_name,
+                                   self.transaction_cost,
+                                   self.feature_size,
+                                   BATCH_SIZE=self.batch_size,
+                                   GAMMA=self.gamma,
+                                   ReplayMemorySize=self.replay_memory_size,
+                                   TARGET_UPDATE=self.target_update,
+                                   n_step=self.n_step,
+                                   window_size=self.window_size)
+
         self.cnn_attn = CNN_ATTN(self.data_loader,
                                  self.dataTrain_sequential,
                                  self.dataTest_sequential,
@@ -524,15 +648,20 @@ class SensitivityRun:
         # self.dqn_vanilla.train(self.n_episodes)
         # self.dqn_candle_rep.train(self.n_episodes)
         self.dqn_windowed.train(self.n_episodes)
+        self.dqn_windowed_ext.train(self.n_episodes)
         # self.mlp_pattern.train(self.n_episodes)
         # self.mlp_vanilla.train(self.n_episodes)
         # self.mlp_candle_rep.train(self.n_episodes)
         self.mlp_windowed.train(self.n_episodes)
+        self.mlp_windowed_ext.train(self.n_episodes)
         # self.cnn1d.train(self.n_episodes)
         self.cnn2d.train(self.n_episodes)
+        self.cnn2d_ext.train(self.n_episodes)
         self.gru.train(self.n_episodes)
+        self.gru_ext.train(self.n_episodes)
         # self.deep_cnn.train(self.n_episodes)
         self.cnn_gru.train(self.n_episodes)
+        self.cnn_gru_ext.train(self.n_episodes)
         # self.cnn_attn.train(self.n_episodes)
 
     def evaluate_sensitivity(self):
@@ -548,15 +677,20 @@ class SensitivityRun:
         # self.test_portfolios['DQN-vanilla'][key] = self.dqn_vanilla.test().get_daily_portfolio_value()
         # self.test_portfolios['DQN-candlerep'][key] = self.dqn_candle_rep.test().get_daily_portfolio_value()
         self.test_portfolios['DQN-windowed'][key] = self.dqn_windowed.test().get_daily_portfolio_value()
+        self.test_portfolios['DQN-windowed-ext'][key] = self.dqn_windowed_ext.test().get_daily_portfolio_value()
         # self.test_portfolios['MLP-pattern'][key] = self.mlp_pattern.test().get_daily_portfolio_value()
         # self.test_portfolios['MLP-vanilla'][key] = self.mlp_vanilla.test().get_daily_portfolio_value()
         # self.test_portfolios['MLP-candlerep'][key] = self.mlp_candle_rep.test().get_daily_portfolio_value()
         self.test_portfolios['MLP-windowed'][key] = self.mlp_windowed.test().get_daily_portfolio_value()
+        self.test_portfolios['MLP-windowed-ext'][key] = self.mlp_windowed_ext.test().get_daily_portfolio_value()
         # self.test_portfolios['CNN1d'][key] = self.cnn1d.test().get_daily_portfolio_value()
         self.test_portfolios['CNN2d'][key] = self.cnn2d.test().get_daily_portfolio_value()
+        self.test_portfolios['CNN2d-ext'][key] = self.cnn2d_ext.test().get_daily_portfolio_value()
         self.test_portfolios['GRU'][key] = self.gru.test().get_daily_portfolio_value()
+        self.test_portfolios['GRU-ext'][key] = self.gru_ext.test().get_daily_portfolio_value()
         # self.test_portfolios['Deep-CNN'][key] = self.deep_cnn.test().get_daily_portfolio_value()
         self.test_portfolios['CNN-GRU'][key] = self.cnn_gru.test().get_daily_portfolio_value()
+        self.test_portfolios['CNN-GRU-ext'][key] = self.cnn_gru_ext.test().get_daily_portfolio_value()
         # self.test_portfolios['CNN-ATTN'][key] = self.cnn_attn.test().get_daily_portfolio_value()
 
     def plot_and_save_sensitivity(self):
@@ -602,11 +736,53 @@ class SensitivityRun:
 
     def evaluate_models(self):
         self.test_portfolios['DQN-windowed'] = self.dqn_windowed.test().get_daily_portfolio_value()
+        self.test_portfolios['DQN-windowed-ext'] = self.dqn_windowed_ext.test().get_daily_portfolio_value()
         self.test_portfolios['MLP-windowed'] = self.mlp_windowed.test().get_daily_portfolio_value()
+        self.test_portfolios['MLP-windowed-ext'] = self.mlp_windowed_ext.test().get_daily_portfolio_value()
         self.test_portfolios['CNN2d'] = self.cnn2d.test().get_daily_portfolio_value()
+        self.test_portfolios['CNN2d-ext'] = self.cnn2d_ext.test().get_daily_portfolio_value()
         self.test_portfolios['GRU'] = self.gru.test().get_daily_portfolio_value()
+        self.test_portfolios['GRU-ext'] = self.gru_ext.test().get_daily_portfolio_value()
         self.test_portfolios['CNN-GRU'] = self.cnn_gru.test().get_daily_portfolio_value()
+        self.test_portfolios['CNN-GRU-ext'] = self.cnn_gru_ext.test().get_daily_portfolio_value()
         self.evaluate_bah_model()
+
+    def print_evaluate_models(self):
+        check_list = [
+            'dqn_windowed',
+            'mlp_windowed',
+            'cnn2d',
+            'gru',
+            'cnn_gru',
+        ]
+
+        for name in check_list:
+            left_func = getattr(self, f"{name}_ext")
+            right_func = getattr(self, f"{name}")
+            left_val = left_func.test().total_return()
+            right_val = right_func.test().total_return()
+            print(f"=========== {(name + ' '*20)[:20]} Rate: {round(left_val/right_val, 2)}      {'**' if right_val <= 0 else ''}")
+
+        # print(f"Total Return (Rate越大越好):")
+        # print(f"dqn_windowed: {round(self.dqn_windowed.test().total_return(), 2)}")
+        # print(f"dqn_windowed_ext: {round(self.dqn_windowed_ext.test().total_return(), 2)}")
+        # print(f"=========== dqn_windowed Rate: {round(self.dqn_windowed_ext.test().total_return() / self.dqn_windowed.test().total_return(), 2)}")
+
+        # print(f"mlp_windowed: {round(self.mlp_windowed.test().total_return(), 2)}")
+        # print(f"mlp_windowed_ext: {round(self.mlp_windowed_ext.test().total_return(), 2)}")
+        # print(f"=========== mlp_windowed Rate: {round(self.mlp_windowed_ext.test().total_return() / self.mlp_windowed.test().total_return(), 2)}")
+
+        # print(f"cnn2d: {round(self.cnn2d.test().total_return(), 2)}")
+        # print(f"cnn2d_ext: {round(self.cnn2d_ext.test().total_return(), 2)}")
+        # print(f"=========== cnn2d Rate:        {round(self.cnn2d_ext.test().total_return() / self.cnn2d.test().total_return(), 2)}")
+
+        # print(f"gru: {round(self.gru.test().total_return(), 2)}")
+        # print(f"gru_ext: {round(self.gru_ext.test().total_return(), 2)}")
+        # print(f"=========== gru Rate:          {round(self.gru_ext.test().total_return() / self.gru.test().total_return(), 2)}")
+
+        # print(f"cnn_gru: {round(self.cnn_gru.test().total_return(), 2)}")
+        # print(f"cnn_gru_ext: {round(self.cnn_gru_ext.test().total_return(), 2)}")
+        # print(f"=========== cnn_gru Rate:      {round(self.cnn_gru_ext.test().total_return() / self.cnn_gru.test().total_return(), 2)}")
 
     def evaluate_bah_model(self):
         self.dataTest_patternBased.data[self.dataTest_patternBased.action_name] = 'buy'
@@ -634,13 +810,21 @@ class SensitivityRun:
                 self.test_portfolios[model_name][0] * 100
                 for i in range(len(self.test_portfolios[model_name]))]
             difference = len(self.test_portfolios[model_name]) - len(self.data_loader.data_test_with_date)
-            df = pd.DataFrame({'date': self.data_loader.data_test_with_date.index,
+            df = pd.DataFrame({'date': pd.to_datetime(self.data_loader.data_test_with_date.index),
                                'portfolio': profit_percentage[difference:]})
             if not first:
                 df.plot(ax=ax, x='date', y='portfolio', label=model_name)
             else:
                 ax = df.plot(x='date', y='portfolio', label=model_name)
                 first = False
+
+            # 在每条线的末尾添加标签
+            last_date = df['date'].iloc[-1]  # 获取最后一个日期
+            last_value = df['portfolio'].iloc[-1]  # 获取最后一个值
+            offset = pd.Timedelta(days=5)
+            new_date = last_date + offset  # 向右移动的新位置
+            # 添加标签（确保new_date已经是datetime类型）
+            ax.text(new_date, last_value, model_name, horizontalalignment='left')
 
         if ax is not None:
             ax.set(xlabel='Time', ylabel='%Rate of Return')
@@ -663,36 +847,40 @@ if __name__ == '__main__':
     n_step = 8  # 多步时间差分
     window_size = args.window_size  # 默认值设置为15，根据论文里来的
     dataset_name = args.dataset_name
-    n_episodes = args.nep   # 默认30
+    n_episodes = args.nep  # 默认30
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"torch version: {torch.__version__}")
     print(f"cal device: {device}")
 
-    feature_size = 64   # 编码器的输出大小
-    target_update = 5   # 5 次后更新目标网络
+    feature_size = 64  # 编码器的输出大小
+    target_update = 5  # 5 次后更新目标网络
 
     # gamma_default = 0.9
     # batch_size_default = 16
     # replay_memory_size_default = 32
 
     # 论文中的默认值
-    gamma_default = 0.9     # 奖励衰减
-    batch_size_default = 10     # mini-batch 方法的 batch 大小
-    replay_memory_size_default = 20     # 经验回放组大小
+    gamma_default = 0.9  # 奖励衰减
+    batch_size_default = 10  # mini-batch 方法的 batch 大小
+    replay_memory_size_default = 20  # 经验回放组大小
 
     data_list = [
-        'AAPL',
-        'GOOGL',
-        'GE',
-        'AAL',
-        'KSS',
-        'HSI',
-        'BTC-USD'
+        '000651',
+        '000725',
+        '000858',
+        '600030',
+        '600036',
+        '600276',
+        '600519',
+        '600887',
+        '600900',
+        '601398',
     ]
 
     for dataset_name in data_list:
-        print(str(datetime.datetime.now()) + ' : ' + dataset_name)
+        # print(str(datetime.datetime.now()) + ' : ' + dataset_name)
+        print(dataset_name)
         run = SensitivityRun(
             dataset_name,
             gamma_default,
@@ -704,11 +892,23 @@ if __name__ == '__main__':
             n_step,
             window_size,
             device,
-            evaluation_parameter='ModelCompare',
-            transaction_cost=0
+            evaluation_parameter='ModelCompareWithAlpha',
+            transaction_cost=0,
+            alpha_extension=[
+                'alpha_019',
+                'alpha_026',
+                'alpha_024',
+                'alpha_074',
+                'alpha_081',
+                'alpha_032',
+                'alpha_050',
+                'alpha_099',
+                'alpha_088',
+                'alpha_061',
+            ]
         )
         run.reset()
         run.train()
         run.evaluate_models()
+        run.print_evaluate_models()
         run.save_models_compare()
-

@@ -4,7 +4,8 @@ from sklearn.preprocessing import MinMaxScaler
 
 
 class DataSequential(Data):
-    def __init__(self, data, action_name, device, gamma, n_step=4, batch_size=50, window_size=20, transaction_cost=0.0):
+    def __init__(self, data, action_name, device, gamma, n_step=4, batch_size=50, window_size=20,
+                 transaction_cost=0.0, alpha_extension=None):
         """
         This class is inherited from the Data class (which is the environment) and designed to change the state space
         to a sequence of candles in each time-step.
@@ -22,10 +23,13 @@ class DataSequential(Data):
         super().__init__(data, action_name, device, gamma, n_step, batch_size, start_index_reward=(window_size - 1),
                          transaction_cost=transaction_cost)
 
-        self.data_kind = 'LSTMSequential'
-        self.state_size = 4
+        if alpha_extension is None:
+            alpha_extension = []
 
-        self.data_preprocessed = data.loc[:, ['open_norm', 'high_norm', 'low_norm', 'close_norm']].values
+        self.data_kind = f"LSTMSequential{'_Ext' if alpha_extension is not None and len(alpha_extension) > 0 else ''}"
+        self.state_size = 4 + len(alpha_extension)
+
+        self.data_preprocessed = data.loc[:, ['open_norm', 'high_norm', 'low_norm', 'close_norm'] + alpha_extension].values
 
         # We ignore the first window_size elements of the data because of trend
         # for i in range(window_size - 1, len(self.data_preprocessed) - window_size + 1):

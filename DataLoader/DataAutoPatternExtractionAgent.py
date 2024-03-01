@@ -4,7 +4,7 @@ import numpy as np
 
 class DataAutoPatternExtractionAgent(Data):
     def __init__(self, data, state_mode, action_name, device, gamma, n_step=4, batch_size=50, window_size=1,
-                 transaction_cost=0.0):
+                 transaction_cost=0.0, alpha_extension=None):
         """
         This data dedicates to non-sequential models. For this, we purely pass the observation space to the agent
         by candles or some representation of the candles. We even take a window of candles as input to such models
@@ -29,7 +29,7 @@ class DataAutoPatternExtractionAgent(Data):
         super().__init__(data, action_name, device, gamma, n_step, batch_size, start_index_reward=start_index_reward,
                          transaction_cost=transaction_cost)
 
-        self.data_kind = 'AutoPatternExtraction'
+        self.data_kind = f"AutoPatternExtraction{'_Ext' if alpha_extension is not None and len(alpha_extension) > 0 else ''}"
 
         self.data_preprocessed = data.loc[:, ['open_norm', 'high_norm', 'low_norm', 'close_norm']].values
         self.state_mode = state_mode
@@ -52,18 +52,24 @@ class DataAutoPatternExtractionAgent(Data):
             self.data_preprocessed = self.data.loc[:, ['%body', '%upper-shadow', '%lower-shadow']].values
 
         elif state_mode == 5:
+            if alpha_extension is None:
+                alpha_extension = []
+
             # window_size * OHLC
-            self.state_size = window_size * 4
+            self.state_size = window_size * (4 + len(alpha_extension))
             temp_states = []
-            for i, row in self.data.loc[:, ['open_norm', 'high_norm', 'low_norm', 'close_norm']].iterrows():
+            for i, row in self.data.loc[:, ['open_norm', 'high_norm', 'low_norm', 'close_norm'] + alpha_extension].iterrows():
+                row_alpha = [row[alpha_col] for alpha_col in alpha_extension]
                 if i < window_size - 1:
                     temp_states += [row.open_norm, row.high_norm, row.low_norm, row.close_norm]
+                    temp_states += row_alpha
                 else:
                     # The trend of the k'th index shows the trend of the whole candles inside the window
                     temp_states += [row.open_norm, row.high_norm, row.low_norm, row.close_norm]
+                    temp_states += row_alpha
                     self.states.append(np.array(temp_states))
                     # removing the trend and first 4 elements from the vector
-                    temp_states = temp_states[3:-1]
+                    temp_states = temp_states[4 + len(alpha_extension):]
 
         if state_mode < 5:
             for i in range(len(self.data_preprocessed)):
