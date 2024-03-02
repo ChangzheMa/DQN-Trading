@@ -25,21 +25,27 @@ class Encoder(nn.Module):
         self.state_encoder = nn.Sequential(
             nn.Linear(state_size, 128),
             nn.BatchNorm1d(128),
-            # nn.Linear(128, 256),
-            # nn.BatchNorm1d(256),
-            nn.Linear(128, num_classes)
+            nn.LeakyReLU(),
+            nn.Linear(128, 256),
+            nn.BatchNorm1d(256),
+            nn.LeakyReLU(),
+            nn.Linear(256, num_classes),
         )
         self.ext_encoder = nn.Sequential(
-            nn.Linear(ext_size, max(ext_size * 2, 128)),
-            nn.BatchNorm1d(max(ext_size * 2, 128)),
-            # nn.Linear(128, 256),
-            # nn.BatchNorm1d(256),
-            nn.Linear(max(ext_size * 2, 128), num_classes)
+            nn.Linear(ext_size, max(ext_size * 4, 128)),
+            nn.BatchNorm1d(max(ext_size * 4, 128)),
+            nn.LeakyReLU(),
+            nn.Linear(max(ext_size * 4, 128), 256),
+            nn.BatchNorm1d(256),
+            nn.LeakyReLU(),
+            nn.Linear(256, num_classes),
         )
         self.combine_encoder = nn.Sequential(
-            # nn.Linear(num_classes * 2, num_classes * 4),
-            # nn.Linear(num_classes * 4, num_classes * 4),
-            nn.Linear(num_classes * 2, num_classes),
+            nn.Linear(num_classes * 2, num_classes * 4),
+            nn.LeakyReLU(),
+            nn.Linear(num_classes * 4, num_classes * 4),
+            nn.LeakyReLU(),
+            nn.Linear(num_classes * 4, num_classes),
         )
 
     def forward(self, x):

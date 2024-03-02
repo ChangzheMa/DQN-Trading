@@ -13,11 +13,16 @@ class Decoder(nn.Module):
         print(f"init Decoder: hidden_size: {hidden_size}, action_length: {action_length}")
 
         self.policy_network = nn.Sequential(
-            nn.Linear(hidden_size * 2, 128),
-            nn.BatchNorm1d(128),
-            nn.Linear(128, 256),
-            nn.BatchNorm1d(256),
-            nn.Linear(256, action_length))
+            nn.Linear(hidden_size * 2, 512),
+            nn.BatchNorm1d(512),
+            nn.LeakyReLU(),
+            nn.Linear(512, 512),
+            nn.BatchNorm1d(512),
+            nn.LeakyReLU(),
+            nn.Linear(512, 64),
+            nn.BatchNorm1d(64),
+            nn.LeakyReLU(),
+            nn.Linear(64, action_length))
 
         # self.layer1 = nn.Linear(hidden_size, 128)
         # self.bn1 = nn.BatchNorm1d(128)

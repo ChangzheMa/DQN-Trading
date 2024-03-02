@@ -136,11 +136,11 @@ DATA_LOADERS = {
 # 默认参数
 def get_default_param():
     return SimpleNamespace(
-        FEATURE_SIZE=128,   # 又名 n_classes
-        WINDOW_SIZE=15,
+        FEATURE_SIZE=16,   # 又名 n_classes
+        WINDOW_SIZE=10,
         TRANSACTION_COST=0,
         BATCH_SIZE=10,
-        GAMMA=0.9,
+        GAMMA=0.7,
         REPLAY_MEMORY_SIZE=20,
         TARGET_UPDATE=5,
         N_STEP=8,
@@ -1008,70 +1008,92 @@ if __name__ == '__main__':
 
     # 回报结果
 
-
-    # 以下开始分模型获取数据
     data_name = DATA_LIST[0]
     data_loader = DATA_LOADERS[data_name]
 
-    feature_size_list = [16, 64, 256]
-    window_size_list = [10, 20, 40]
-    gamma_list = [0.7, 0.8, 0.9]
-    n_step_list = [3, 8, 20]
-
-    # feature_size
     portfolios_data = {}
     param = get_default_param()
-    for feature_size in feature_size_list:
-        print(f"{'='*50} compare feature_size {feature_size}")
-        param.FEATURE_SIZE = feature_size
-        train_mlp_windowed(data_name, data_loader, portfolios_data, label_name=f"MLP-feature{feature_size}", param=param)
-        train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"MLPExt-feature{feature_size}", param=param)
-        train_gru(data_name, data_loader, portfolios_data, label_name=f"GRU-feature{feature_size}", param=get_default_param())
-        train_gru_ext(data_name, data_loader, portfolios_data, label_name=f"GRUExt-feature{feature_size}", param=get_default_param())
+
+    param.N_EPISODES = 5
+    train_mlp_windowed(data_name, data_loader, portfolios_data, label_name=f"MLP-epc5", param=param)
+
+    param.N_EPISODES = 50
+    train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"MLPExt-epc50", param=param)
+
+    param.N_EPISODES = 5
+    train_gru(data_name, data_loader, portfolios_data, label_name=f"GRU-epc5", param=get_default_param())
+
+    param.N_EPISODES = 50
+    train_gru_ext(data_name, data_loader, portfolios_data, label_name=f"GRUExt-epc50", param=get_default_param())
+
     file_path = "Results/ModelCompare"
-    plot_portfolios(portfolios_data, data_loader.data_test_with_date, file_path, f"{data_name}-Compare-featureSize")
-    save_portfolios(portfolios_data, file_path, f"{data_name}-Compare-featureSize")
-
-    # window_size
-    portfolios_data = {}
-    param = get_default_param()
-    for win_size in window_size_list:
-        print(f"{'='*50} compare win_size {win_size}")
-        param.WINDOW_SIZE = win_size
-        train_mlp_windowed(data_name, data_loader, portfolios_data, label_name=f"MLP-window{win_size}", param=param)
-        train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"MLPExt-window{win_size}", param=param)
-        train_gru(data_name, data_loader, portfolios_data, label_name=f"GRU-window{win_size}", param=get_default_param())
-        train_gru_ext(data_name, data_loader, portfolios_data, label_name=f"GRUExt-window{win_size}", param=get_default_param())
-    file_path = "Results/ModelCompare"
-    plot_portfolios(portfolios_data, data_loader.data_test_with_date, file_path, f"{data_name}-Compare-windowSize")
-    save_portfolios(portfolios_data, file_path, f"{data_name}-Compare-windowSize")
-
-    # gamma
-    portfolios_data = {}
-    param = get_default_param()
-    for gamma in gamma_list:
-        print(f"{'='*50} compare gamma {gamma}")
-        param.GAMMA = gamma
-        train_mlp_windowed(data_name, data_loader, portfolios_data, label_name=f"MLP-gamma{gamma}", param=param)
-        train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"MLPExt-gamma{gamma}", param=param)
-        train_gru(data_name, data_loader, portfolios_data, label_name=f"GRU-gamma{gamma}", param=get_default_param())
-        train_gru_ext(data_name, data_loader, portfolios_data, label_name=f"GRUExt-gamma{gamma}", param=get_default_param())
-    file_path = "Results/ModelCompare"
-    plot_portfolios(portfolios_data, data_loader.data_test_with_date, file_path, f"{data_name}-Compare-Gamma")
-    save_portfolios(portfolios_data, file_path, f"{data_name}-Compare-Gamma")
-
-    # n_step
-    portfolios_data = {}
-    param = get_default_param()
-    for n_step in n_step_list:
-        print(f"{'='*50} compare n_step {n_step}")
-        param.N_STEP = n_step
-        train_mlp_windowed(data_name, data_loader, portfolios_data, label_name=f"MLP-nstep{n_step}", param=param)
-        train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"MLPExt-nstep{n_step}", param=param)
-        train_gru(data_name, data_loader, portfolios_data, label_name=f"GRU-nstep{n_step}", param=get_default_param())
-        train_gru_ext(data_name, data_loader, portfolios_data, label_name=f"GRUExt-nstep{n_step}", param=get_default_param())
-    file_path = "Results/ModelCompare"
-    plot_portfolios(portfolios_data, data_loader.data_test_with_date, file_path, f"{data_name}-Compare-nStep")
-    save_portfolios(portfolios_data, file_path, f"{data_name}-Compare-nStep")
+    plot_portfolios(portfolios_data, data_loader.data_test_with_date, file_path, f"{data_name}-MyModel-Big")
+    save_portfolios(portfolios_data, file_path, f"{data_name}-MyModel-Big")
 
 
+    '''
+    ---------- 以下开始分模型获取数据
+    '''
+    # # 以下开始分模型获取数据
+    # feature_size_list = [16, 64, 256]
+    # window_size_list = [10, 20, 40]
+    # gamma_list = [0.7, 0.8, 0.9]
+    # n_step_list = [3, 8, 20]
+    #
+    # # feature_size
+    # portfolios_data = {}
+    # param = get_default_param()
+    # for feature_size in feature_size_list:
+    #     print(f"{'='*50} compare feature_size {feature_size}")
+    #     param.FEATURE_SIZE = feature_size
+    #     train_mlp_windowed(data_name, data_loader, portfolios_data, label_name=f"MLP-feature{feature_size}", param=param)
+    #     train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"MLPExt-feature{feature_size}", param=param)
+    #     train_gru(data_name, data_loader, portfolios_data, label_name=f"GRU-feature{feature_size}", param=get_default_param())
+    #     train_gru_ext(data_name, data_loader, portfolios_data, label_name=f"GRUExt-feature{feature_size}", param=get_default_param())
+    # file_path = "Results/ModelCompare"
+    # plot_portfolios(portfolios_data, data_loader.data_test_with_date, file_path, f"{data_name}-Compare-featureSize")
+    # save_portfolios(portfolios_data, file_path, f"{data_name}-Compare-featureSize")
+    #
+    # # window_size
+    # portfolios_data = {}
+    # param = get_default_param()
+    # for win_size in window_size_list:
+    #     print(f"{'='*50} compare win_size {win_size}")
+    #     param.WINDOW_SIZE = win_size
+    #     train_mlp_windowed(data_name, data_loader, portfolios_data, label_name=f"MLP-window{win_size}", param=param)
+    #     train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"MLPExt-window{win_size}", param=param)
+    #     train_gru(data_name, data_loader, portfolios_data, label_name=f"GRU-window{win_size}", param=get_default_param())
+    #     train_gru_ext(data_name, data_loader, portfolios_data, label_name=f"GRUExt-window{win_size}", param=get_default_param())
+    # file_path = "Results/ModelCompare"
+    # plot_portfolios(portfolios_data, data_loader.data_test_with_date, file_path, f"{data_name}-Compare-windowSize")
+    # save_portfolios(portfolios_data, file_path, f"{data_name}-Compare-windowSize")
+    #
+    # # gamma
+    # portfolios_data = {}
+    # param = get_default_param()
+    # for gamma in gamma_list:
+    #     print(f"{'='*50} compare gamma {gamma}")
+    #     param.GAMMA = gamma
+    #     train_mlp_windowed(data_name, data_loader, portfolios_data, label_name=f"MLP-gamma{gamma}", param=param)
+    #     train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"MLPExt-gamma{gamma}", param=param)
+    #     train_gru(data_name, data_loader, portfolios_data, label_name=f"GRU-gamma{gamma}", param=get_default_param())
+    #     train_gru_ext(data_name, data_loader, portfolios_data, label_name=f"GRUExt-gamma{gamma}", param=get_default_param())
+    # file_path = "Results/ModelCompare"
+    # plot_portfolios(portfolios_data, data_loader.data_test_with_date, file_path, f"{data_name}-Compare-Gamma")
+    # save_portfolios(portfolios_data, file_path, f"{data_name}-Compare-Gamma")
+    #
+    # # n_step
+    # portfolios_data = {}
+    # param = get_default_param()
+    # for n_step in n_step_list:
+    #     print(f"{'='*50} compare n_step {n_step}")
+    #     param.N_STEP = n_step
+    #     train_mlp_windowed(data_name, data_loader, portfolios_data, label_name=f"MLP-nstep{n_step}", param=param)
+    #     train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"MLPExt-nstep{n_step}", param=param)
+    #     train_gru(data_name, data_loader, portfolios_data, label_name=f"GRU-nstep{n_step}", param=get_default_param())
+    #     train_gru_ext(data_name, data_loader, portfolios_data, label_name=f"GRUExt-nstep{n_step}", param=get_default_param())
+    # file_path = "Results/ModelCompare"
+    # plot_portfolios(portfolios_data, data_loader.data_test_with_date, file_path, f"{data_name}-Compare-nStep")
+    # save_portfolios(portfolios_data, file_path, f"{data_name}-Compare-nStep")
+    #
+    #
