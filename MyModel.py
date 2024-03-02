@@ -8,6 +8,7 @@ from DataLoader.DataAutoPatternExtractionAgent import DataAutoPatternExtractionA
 from DataLoader.DataSequential import DataSequential
 
 from DeepRLAgent.MLPEncoder.Train import Train as SimpleMLP
+from DeepRLAgent.MLPEncoderExtension.Train import Train as SimpleMLPExt
 from DeepRLAgent.SimpleCNNEncoder.Train import Train as SimpleCNN
 from EncoderDecoderAgent.GRU.Train import Train as GRU
 from EncoderDecoderAgent.CNN.Train import Train as CNN
@@ -134,7 +135,7 @@ DATA_LOADERS = {
 # 默认参数
 def get_default_param():
     return SimpleNamespace(
-        FEATURE_SIZE=128,
+        FEATURE_SIZE=128,   # 又名 n_classes
         WINDOW_SIZE=15,
         TRANSACTION_COST=0,
         BATCH_SIZE=10,
@@ -142,7 +143,7 @@ def get_default_param():
         REPLAY_MEMORY_SIZE=20,
         TARGET_UPDATE=5,
         N_STEP=8,
-        N_EPISODES=30,
+        N_EPISODES=2,
         ALPHA_EXTENSION=[
             'alpha_019',
             'alpha_026',
@@ -951,11 +952,11 @@ def train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f
                                               'action_auto_extraction_windowed_and_ext',
                                               device, param.GAMMA, param.N_STEP, param.BATCH_SIZE,
                                               param.WINDOW_SIZE, param.TRANSACTION_COST, param.ALPHA_EXTENSION)
-    mlp_windowed_ext = SimpleMLP(data_loader, trainData, testData, data_name,
-                                 state_mode=5, window_size=param.WINDOW_SIZE, transaction_cost=param.TRANSACTION_COST,
-                                 n_classes=param.FEATURE_SIZE,
-                                 BATCH_SIZE=param.BATCH_SIZE, GAMMA=param.GAMMA, ReplayMemorySize=param.REPLAY_MEMORY_SIZE,
-                                 TARGET_UPDATE=param.TARGET_UPDATE, n_step=param.N_STEP)
+    mlp_windowed_ext = SimpleMLPExt(data_loader, trainData, testData, data_name,
+                                    state_mode=5, window_size=param.WINDOW_SIZE, transaction_cost=param.TRANSACTION_COST,
+                                    n_classes=param.FEATURE_SIZE,
+                                    BATCH_SIZE=param.BATCH_SIZE, GAMMA=param.GAMMA, ReplayMemorySize=param.REPLAY_MEMORY_SIZE,
+                                    TARGET_UPDATE=param.TARGET_UPDATE, n_step=param.N_STEP)
     print(f"================ Encoder: \n{mlp_windowed_ext.encoder}")
     print(f"================ Decoder: \n{mlp_windowed_ext.policy_decoder}")
     mlp_windowed_ext.train(num_episodes=param.N_EPISODES)
@@ -1021,7 +1022,7 @@ if __name__ == '__main__':
     data_loader = DATA_LOADERS[data_name]
 
     # mlp_windowed  一张图里的一条线
-    train_mlp_windowed(data_name, data_loader, portfolios_data, param=get_default_param())
+    # train_mlp_windowed(data_name, data_loader, portfolios_data, param=get_default_param())
     # mlp_windowed_ext  一张图里的一条线
     train_mlp_windowed_ext(data_name, data_loader, portfolios_data, param=get_default_param())
 

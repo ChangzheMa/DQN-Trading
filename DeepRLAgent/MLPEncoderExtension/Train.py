@@ -1,7 +1,7 @@
 import torch.optim as optim
-from DeepRLAgent.MLPEncoder.Seq2SeqModel import Seq2Seq
-from DeepRLAgent.MLPEncoder.Decoder import Decoder
-from DeepRLAgent.MLPEncoder.Encoder import Encoder
+from DeepRLAgent.MLPEncoderExtension.Seq2SeqModel import Seq2Seq
+from DeepRLAgent.MLPEncoderExtension.Decoder import Decoder
+from DeepRLAgent.MLPEncoderExtension.Encoder import Encoder
 from DeepRLAgent.BaseTrain import BaseTrain
 import torch
 from torchsummary import summary
@@ -59,7 +59,7 @@ class Train(BaseTrain):
                                     TARGET_UPDATE,
                                     n_step)
 
-        self.encoder = Encoder(n_classes, data_train.state_size).to(device)
+        self.encoder = Encoder(n_classes, data_train.state_size, data_train.ext_size, window_size).to(device)
         self.policy_decoder = Decoder(n_classes, 3).to(device)
         self.target_decoder = Decoder(n_classes, 3).to(device)
 
@@ -71,7 +71,7 @@ class Train(BaseTrain):
 
         self.optimizer = optim.Adam(self.policy_net.parameters())
 
-        test_encoder = Encoder(n_classes, self.data_train.state_size).to(device)
+        test_encoder = Encoder(n_classes, self.data_train.state_size, data_train.ext_size, window_size).to(device)
         test_decoder = Decoder(n_classes, 3).to(device)
 
         self.test_net = Seq2Seq(test_encoder, test_decoder)
