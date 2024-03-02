@@ -59,7 +59,7 @@ class Evaluation:
 
         print(
             f"{format(arithmetic_return, '.0f')} & {format(average_daily_return, '.2f')} & {format(daily_return_variance, '.2f')} & "
-            f"{format(time_weighted_return, '.3f')} & {format(total_return, '.0f')} \% & {format(sharp_ratio, '.3f')} & {format(value_at_risk, '.2f')} & {format(volatility, '.1f')} & "
+            f"{format(time_weighted_return, '.3f')} & [[ {format(total_return, '.0f')} ]] \% & {format(sharp_ratio, '.3f')} & {format(value_at_risk, '.2f')} & {format(volatility, '.1f')} & "
             f"{format(self.initial_investment, '.0f')} & {format(portfolio[-1], '.1f')} \\\\")
 
     def arithmetic_daily_return(self):

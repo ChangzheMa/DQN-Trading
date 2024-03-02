@@ -6,6 +6,9 @@ import torch.nn.functional as F
 class AttentionLayer(nn.Module):
     def __init__(self, hidden_size, window_size, device):
         super(AttentionLayer, self).__init__()
+
+        print(f"init AttentionLayer: hidden_size: {hidden_size}, window_size: {window_size}")
+
         self.hidden_size = hidden_size
         self.window_size = window_size
         self.device = device

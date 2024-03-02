@@ -7,6 +7,9 @@ class EncoderRNN(nn.Module):
         """
         :param input_size: 5 which is OHLC + trend
         """
+        print(f"init EncoderRNN: input_size: {input_size}, hidden_size: {hidden_size}")
+        # EncoderRNN: input_size: 14, hidden_size: 128
+
         super(EncoderRNN, self).__init__()
         self.device = device
         self.hidden_size = hidden_size
@@ -21,6 +24,7 @@ class EncoderRNN(nn.Module):
         The hidden is of the shape [1, batch_size, hidden_size]
         """
 
+        # x.shape: 15, 10, 4 (window_size, batch_size, 特征数量)
         if len(x.shape) < 3:
             x = x.unsqueeze(1)
 
