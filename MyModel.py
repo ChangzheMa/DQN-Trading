@@ -33,7 +33,9 @@ from torchsummary import summary
 from PatternDetectionInCandleStick.Evaluation import Evaluation
 from utils import save_pkl, load_pkl
 from types import SimpleNamespace
+from torch.utils import tensorboard
 
+tensorboard_writer = tensorboard.SummaryWriter('runs')
 
 parser = argparse.ArgumentParser(description='DQN-Trader arguments')
 
@@ -136,7 +138,7 @@ DATA_LOADERS = {
 # 默认参数
 def get_default_param():
     return SimpleNamespace(
-        FEATURE_SIZE=16,   # 又名 n_classes
+        FEATURE_SIZE=256,   # 又名 n_classes
         WINDOW_SIZE=10,
         TRANSACTION_COST=0,
         BATCH_SIZE=10,
@@ -972,7 +974,7 @@ def train_gru(data_name, data_loader, portfolios_data, label_name=f"GRU", param=
               TARGET_UPDATE=param.TARGET_UPDATE, n_step=param.N_STEP, window_size=param.WINDOW_SIZE)
     print(f"================ Encoder: \n{gru.encoder}")
     print(f"================ Decoder: \n{gru.policy_decoder}")
-    gru.train(num_episodes=param.N_EPISODES)
+    gru.train(num_episodes=param.N_EPISODES, tensorboard=tensorboard_writer)
     gru.test().evaluate()
     portfolios_data[label_name] = gru.test().get_daily_portfolio_value()
 
@@ -993,7 +995,7 @@ def train_gru_ext(data_name, data_loader, portfolios_data, label_name=f"GRU_ext"
                      TARGET_UPDATE=param.TARGET_UPDATE, n_step=param.N_STEP, window_size=param.WINDOW_SIZE)
     print(f"================ Encoder: \n{gru_ext.encoder}")
     print(f"================ Decoder: \n{gru_ext.policy_decoder}")
-    gru_ext.train(num_episodes=param.N_EPISODES)
+    gru_ext.train(num_episodes=param.N_EPISODES, tensorboard=tensorboard_writer)
     gru_ext.test().evaluate()
     portfolios_data[label_name] = gru_ext.test().get_daily_portfolio_value()
 
@@ -1012,19 +1014,34 @@ if __name__ == '__main__':
     data_loader = DATA_LOADERS[data_name]
 
     portfolios_data = {}
-    param = get_default_param()
 
+    param = get_default_param()
     param.N_EPISODES = 5
     train_mlp_windowed(data_name, data_loader, portfolios_data, label_name=f"MLP-epc5", param=param)
 
-    param.N_EPISODES = 50
-    train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"MLPExt-epc50", param=param)
+    param = get_default_param()
+    param.N_EPISODES = 200
+    param.FEATURE_SIZE = 256
+    train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"MLPExt-epc50-fs256", param=param)
 
+    param = get_default_param()
+    param.N_EPISODES = 200
+    param.FEATURE_SIZE = 64
+    train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"MLPExt-epc50-fs64", param=param)
+
+    param = get_default_param()
     param.N_EPISODES = 5
-    train_gru(data_name, data_loader, portfolios_data, label_name=f"GRU-epc5", param=get_default_param())
+    train_gru(data_name, data_loader, portfolios_data, label_name=f"GRU-epc5", param=param)
 
-    param.N_EPISODES = 50
-    train_gru_ext(data_name, data_loader, portfolios_data, label_name=f"GRUExt-epc50", param=get_default_param())
+    param = get_default_param()
+    param.N_EPISODES = 200
+    param.FEATURE_SIZE = 256
+    train_gru_ext(data_name, data_loader, portfolios_data, label_name=f"GRUExt-epc50-fs256", param=param)
+
+    param = get_default_param()
+    param.N_EPISODES = 200
+    param.FEATURE_SIZE = 64
+    train_gru_ext(data_name, data_loader, portfolios_data, label_name=f"GRUExt-epc50-fs64", param=param)
 
     file_path = "Results/ModelCompare"
     plot_portfolios(portfolios_data, data_loader.data_test_with_date, file_path, f"{data_name}-MyModel-Big")
