@@ -11,6 +11,7 @@ from DeepRLAgent.MLPEncoder.Train import Train as SimpleMLP
 from DeepRLAgent.MLPEncoderExtension.Train import Train as SimpleMLPExt
 from DeepRLAgent.SimpleCNNEncoder.Train import Train as SimpleCNN
 from EncoderDecoderAgent.GRU.Train import Train as GRU
+from EncoderDecoderAgent.GRUExtension.Train import Train as GRUExt
 from EncoderDecoderAgent.CNN.Train import Train as CNN
 from EncoderDecoderAgent.CNN2D.Train import Train as CNN2d
 from EncoderDecoderAgent.CNNAttn.Train import Train as CNN_ATTN
@@ -143,19 +144,10 @@ def get_default_param():
         REPLAY_MEMORY_SIZE=20,
         TARGET_UPDATE=5,
         N_STEP=8,
-        N_EPISODES=2,
-        ALPHA_EXTENSION=[
-            'alpha_019',
-            'alpha_026',
-            'alpha_024',
-            'alpha_074',
-            'alpha_081',
-            'alpha_032',
-            'alpha_050',
-            'alpha_099',
-            'alpha_088',
-            'alpha_061',
-        ]
+        N_EPISODES=5,
+        ALPHA_EXTENSION=[f"alpha_{('000' + str(i))[-3:]}" for i in range(1, 102)],
+        # ALPHA_EXTENSION=['alpha_019', 'alpha_026', 'alpha_024', 'alpha_074', 'alpha_081',
+        #                  'alpha_032', 'alpha_050', 'alpha_099', 'alpha_088', 'alpha_061',],
     )
 
 
@@ -996,9 +988,9 @@ def train_gru_ext(data_name, data_loader, portfolios_data, label_name=f"GRU_ext"
                               'action_sequential',
                               device, param.GAMMA, param.N_STEP, param.BATCH_SIZE,
                               param.WINDOW_SIZE, param.TRANSACTION_COST, param.ALPHA_EXTENSION)
-    gru_ext = GRU(data_loader, trainData, testData, data_name, param.TRANSACTION_COST, param.FEATURE_SIZE,
-              BATCH_SIZE=param.BATCH_SIZE, GAMMA=param.GAMMA, ReplayMemorySize=param.REPLAY_MEMORY_SIZE,
-              TARGET_UPDATE=param.TARGET_UPDATE, n_step=param.N_STEP, window_size=param.WINDOW_SIZE)
+    gru_ext = GRUExt(data_loader, trainData, testData, data_name, param.TRANSACTION_COST, param.FEATURE_SIZE,
+                     BATCH_SIZE=param.BATCH_SIZE, GAMMA=param.GAMMA, ReplayMemorySize=param.REPLAY_MEMORY_SIZE,
+                     TARGET_UPDATE=param.TARGET_UPDATE, n_step=param.N_STEP, window_size=param.WINDOW_SIZE)
     print(f"================ Encoder: \n{gru_ext.encoder}")
     print(f"================ Decoder: \n{gru_ext.policy_decoder}")
     gru_ext.train(num_episodes=param.N_EPISODES)
@@ -1015,25 +1007,67 @@ if __name__ == '__main__':
     print(f"--------- total start time: {start_time}")
 
     # 回报结果
-    portfolios_data = {}
+
 
     # 以下开始分模型获取数据
     data_name = DATA_LIST[0]
     data_loader = DATA_LOADERS[data_name]
 
-    # mlp_windowed  一张图里的一条线
-    # train_mlp_windowed(data_name, data_loader, portfolios_data, param=get_default_param())
-    # mlp_windowed_ext  一张图里的一条线
-    train_mlp_windowed_ext(data_name, data_loader, portfolios_data, param=get_default_param())
+    feature_size_list = [16, 64, 256]
+    window_size_list = [10, 20, 40]
+    gamma_list = [0.7, 0.8, 0.9]
+    n_step_list = [3, 8, 20]
 
-    # GRU 一张图里的一条线
-    train_gru(data_name, data_loader, portfolios_data, param=get_default_param())
-    # GRU_ext 一张图里的一条线
-    train_gru_ext(data_name, data_loader, portfolios_data, param=get_default_param())
-
-    # 分模型获取数据结束，以下绘图存储结果
-
-    # 画图, data_test_with_date 用来获取日期（x轴）
+    # feature_size
+    portfolios_data = {}
+    param = get_default_param()
+    for feature_size in feature_size_list:
+        param.FEATURE_SIZE = feature_size
+        train_mlp_windowed(data_name, data_loader, portfolios_data, label_name=f"MLP-feature{feature_size}", param=param)
+        train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"MLPExt-feature{feature_size}", param=param)
+        train_gru(data_name, data_loader, portfolios_data, label_name=f"GRU-feature{feature_size}", param=get_default_param())
+        train_gru_ext(data_name, data_loader, portfolios_data, label_name=f"GRUExt-feature{feature_size}", param=get_default_param())
     file_path = "Results/ModelCompare"
-    plot_portfolios(portfolios_data, data_loader.data_test_with_date, file_path, data_name)
+    plot_portfolios(portfolios_data, data_loader.data_test_with_date, file_path, f"{data_name}-Compare-featureSize")
     save_portfolios(portfolios_data, file_path, data_name)
+
+    # window_size
+    portfolios_data = {}
+    param = get_default_param()
+    for win_size in window_size_list:
+        param.WINDOW_SIZE = win_size
+        train_mlp_windowed(data_name, data_loader, portfolios_data, label_name=f"MLP-window{win_size}", param=param)
+        train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"MLPExt-window{win_size}", param=param)
+        train_gru(data_name, data_loader, portfolios_data, label_name=f"GRU-window{win_size}", param=get_default_param())
+        train_gru_ext(data_name, data_loader, portfolios_data, label_name=f"GRUExt-window{win_size}", param=get_default_param())
+    file_path = "Results/ModelCompare"
+    plot_portfolios(portfolios_data, data_loader.data_test_with_date, file_path, f"{data_name}-Compare-windowSize")
+    save_portfolios(portfolios_data, file_path, data_name)
+
+    # gamma
+    portfolios_data = {}
+    param = get_default_param()
+    for gamma in gamma_list:
+        param.GAMMA = gamma
+        train_mlp_windowed(data_name, data_loader, portfolios_data, label_name=f"MLP-gamma{gamma}", param=param)
+        train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"MLPExt-gamma{gamma}", param=param)
+        train_gru(data_name, data_loader, portfolios_data, label_name=f"GRU-gamma{gamma}", param=get_default_param())
+        train_gru_ext(data_name, data_loader, portfolios_data, label_name=f"GRUExt-gamma{gamma}", param=get_default_param())
+    file_path = "Results/ModelCompare"
+    plot_portfolios(portfolios_data, data_loader.data_test_with_date, file_path, f"{data_name}-Compare-Gamma")
+    save_portfolios(portfolios_data, file_path, data_name)
+
+    # n_step
+    portfolios_data = {}
+    param = get_default_param()
+    for n_step in n_step_list:
+        param.N_STEP = n_step
+        train_mlp_windowed(data_name, data_loader, portfolios_data, label_name=f"MLP-nstep{n_step}", param=param)
+        train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"MLPExt-nstep{n_step}", param=param)
+        train_gru(data_name, data_loader, portfolios_data, label_name=f"GRU-nstep{n_step}", param=get_default_param())
+        train_gru_ext(data_name, data_loader, portfolios_data, label_name=f"GRUExt-nstep{n_step}", param=get_default_param())
+    file_path = "Results/ModelCompare"
+    plot_portfolios(portfolios_data, data_loader.data_test_with_date, file_path, f"{data_name}-Compare-nStep")
+    save_portfolios(portfolios_data, file_path, data_name)
+
+

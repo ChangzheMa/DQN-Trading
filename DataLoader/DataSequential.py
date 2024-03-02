@@ -27,14 +27,15 @@ class DataSequential(Data):
             alpha_extension = []
 
         self.data_kind = f"LSTMSequential{'_Ext' if alpha_extension is not None and len(alpha_extension) > 0 else ''}"
-        self.state_size = 4 + len(alpha_extension)
+        self.state_size = 5
+        self.ext_size = len(alpha_extension)
 
-        self.data_preprocessed = data.loc[:, ['open_norm', 'high_norm', 'low_norm', 'close_norm'] + alpha_extension].values
+        self.data_preprocessed = data.loc[:, ['open_norm', 'high_norm', 'low_norm', 'close_norm', 'trend'] + alpha_extension].values
 
         # We ignore the first window_size elements of the data because of trend
         # for i in range(window_size - 1, len(self.data_preprocessed) - window_size + 1):
         for i in range(0, len(self.data_preprocessed) - window_size + 1):
-            temp_states = torch.zeros(window_size, self.state_size, device=device)
+            temp_states = torch.zeros(window_size, self.state_size + self.ext_size, device=device)
             for j in range(i, i + window_size):
                 temp_states[j - i] = torch.tensor(
                     self.data_preprocessed[j], dtype=torch.float, device=device)
