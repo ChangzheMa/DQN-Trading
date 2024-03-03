@@ -57,7 +57,7 @@ class Train(BaseTrain):
                                     TARGET_UPDATE,
                                     n_step,
                                     window_size)
-        print(f"init TrainModel: hidden_size: {hidden_size}, window_size: {window_size}")
+        # print(f"init TrainModel: hidden_size: {hidden_size}, window_size: {window_size}")
 
         self.hidden_size = hidden_size
 

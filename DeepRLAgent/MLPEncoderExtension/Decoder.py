@@ -10,15 +10,15 @@ class Decoder(nn.Module):
         """
         super(Decoder, self).__init__()
 
-        print(f"init Decoder: num_classes: {num_classes}, action_length: {action_length}")
+        # print(f"init Decoder: num_classes: {num_classes}, action_length: {action_length}")
 
         self.policy_network = nn.Sequential(
-            nn.Linear(num_classes, 128),
+            nn.Linear(num_classes * 2, 128),
             nn.BatchNorm1d(128),
-            nn.LeakyReLU(),
+            # nn.LeakyReLU(),
             nn.Linear(128, 256),
             nn.BatchNorm1d(256),
-            nn.LeakyReLU(),
+            # nn.LeakyReLU(),
             nn.Linear(256, action_length))
 
     def forward(self, x):

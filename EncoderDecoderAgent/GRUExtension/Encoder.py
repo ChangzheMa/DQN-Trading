@@ -7,7 +7,7 @@ class EncoderRNN(nn.Module):
         """
         :param input_size: 5 which is OHLC + trend
         """
-        print(f"init EncoderRNN: state_size: {state_size}, ext_size: {ext_size}, hidden_size: {hidden_size}")
+        # print(f"init EncoderRNN: state_size: {state_size}, ext_size: {ext_size}, hidden_size: {hidden_size}")
         # EncoderRNN: input_size: 14, hidden_size: 128
 
         super(EncoderRNN, self).__init__()

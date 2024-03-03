@@ -10,7 +10,7 @@ class Decoder(nn.Module):
         """
         super(Decoder, self).__init__()
 
-        print(f"init Decoder: hidden_size: {hidden_size}, action_length: {action_length}")
+        # print(f"init Decoder: hidden_size: {hidden_size}, action_length: {action_length}")
 
         self.policy_network = nn.Sequential(
             nn.Linear(hidden_size * 2, 512),

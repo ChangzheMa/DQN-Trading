@@ -37,7 +37,7 @@ def sort_by_score(item):
 scores = {}
 
 for stock_code in available_stock_list:
-    data = pd.read_csv(f"Data/{stock_code}/alpha101.csv")
+    data = pd.read_csv(f"../Data/{stock_code}/alpha101.csv")
     scores[stock_code] = []
     for index in range(1, 102):
         # 价格
@@ -52,9 +52,9 @@ for stock_code in available_stock_list:
 
 col_names = []
 for key in scores.keys():
-    col_names.extend([item for (item, score) in scores[key][:15]])
+    col_names.extend([item for (item, score) in scores[key][:50]])
 
-collections.Counter(col_names)
+print(collections.Counter(col_names))
 
 '''
 Counter({'alpha_019': 10,

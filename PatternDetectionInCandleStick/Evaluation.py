@@ -18,7 +18,7 @@ class Evaluation:
         self.action_label = action_label
         self.trading_cost_ratio = trading_cost_ratio
 
-    def evaluate(self):
+    def evaluate(self, simple_print=False):
         arithmetic_return = self.arithmetic_daily_return()
         # logarithmic_return = self.logarithmic_daily_return()
         average_daily_return = self.average_daily_return()
@@ -27,35 +27,36 @@ class Evaluation:
         time_weighted_return = self.time_weighted_return()
         total_return = self.total_return()
         sharp_ratio = self.sharp_ratio()
-        value_at_risk = self.value_at_risk()
+        value_at_risk = self.value_at_risk(simple_print=simple_print)
         volatility = self.volatility()
         portfolio = self.get_daily_portfolio_value()
 
-        print('#' * 50)
-        print(f'Arithmetic Return: {arithmetic_return}')
-        # print('#' * 50)
-        # print(f'Logarithmic Return: {logarithmic_return}')
-        print('#' * 50)
-        print(f'Average daily return: {average_daily_return}')
-        print('#' * 50)
-        print(f'Daily return variance (return type: Arithmetic): {daily_return_variance}')
-        print('#' * 50)
-        print(f'Daily return variance (return type: Logarithmic): {daily_return_variance_log}')
-        print('#' * 50)
-        print(f'Time weighted return: {time_weighted_return}')
-        print('#' * 50)
-        print(f'Total Return: {total_return} %')
-        print('#' * 50)
-        print(f'Sharp Ratio: {sharp_ratio}')
-        print('#' * 50)
-        print(f'Value at Risk (Monte Carlo method): {value_at_risk}')
-        print('#' * 50)
-        print(f'Volatility: {volatility}')
-        print('#' * 50)
-        print(f'Initial Investment: {self.initial_investment}')
-        print('#' * 50)
-        print(f'Final Portfolio Value: {portfolio[-1]}')
-        print('#' * 50)
+        if not simple_print:
+            print('#' * 50)
+            print(f'Arithmetic Return: {arithmetic_return}')
+            # print('#' * 50)
+            # print(f'Logarithmic Return: {logarithmic_return}')
+            print('#' * 50)
+            print(f'Average daily return: {average_daily_return}')
+            print('#' * 50)
+            print(f'Daily return variance (return type: Arithmetic): {daily_return_variance}')
+            print('#' * 50)
+            print(f'Daily return variance (return type: Logarithmic): {daily_return_variance_log}')
+            print('#' * 50)
+            print(f'Time weighted return: {time_weighted_return}')
+            print('#' * 50)
+            print(f'Total Return: {total_return} %')
+            print('#' * 50)
+            print(f'Sharp Ratio: {sharp_ratio}')
+            print('#' * 50)
+            print(f'Value at Risk (Monte Carlo method): {value_at_risk}')
+            print('#' * 50)
+            print(f'Volatility: {volatility}')
+            print('#' * 50)
+            print(f'Initial Investment: {self.initial_investment}')
+            print('#' * 50)
+            print(f'Final Portfolio Value: {portfolio[-1]}')
+            print('#' * 50)
 
         print(
             f"{format(arithmetic_return, '.0f')} & {format(average_daily_return, '.2f')} & {format(daily_return_variance, '.2f')} & "
@@ -133,7 +134,7 @@ class Evaluation:
         rate_of_return = self.get_rate_of_return()
         return np.mean(rate_of_return) / np.std(rate_of_return)
 
-    def value_at_risk(self, significance_level=5):
+    def value_at_risk(self, significance_level=5, simple_print=False):
         """
         https://www.investopedia.com/articles/04/092904.asp
 
@@ -168,9 +169,10 @@ class Evaluation:
         var_cov_VAR_95 = -1.65 * std  # For 95% confidence
         var_cov_VAR_99 = -2.33 * std  # For 99% confidence
 
-        print(f'Historical VAR is {HistVAR}')
-        print(f'Variance-Covariance VAR with 95% confidence is {var_cov_VAR_95}')
-        print(f'Variance-Covariance VAR with 99% confidence is {var_cov_VAR_99}')
+        if not simple_print:
+            print(f'Historical VAR is {HistVAR}')
+            print(f'Variance-Covariance VAR with 95% confidence is {var_cov_VAR_95}')
+            print(f'Variance-Covariance VAR with 99% confidence is {var_cov_VAR_99}')
 
         np.random.seed(42)
         n_sims = 1000000

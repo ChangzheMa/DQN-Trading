@@ -14,7 +14,7 @@ class Encoder(nn.Module):
         """
         super(Encoder, self).__init__()
 
-        print(f"init Encoder: num_classes: {num_classes}, state_size: {state_size}")
+        # print(f"init Encoder: num_classes: {num_classes}, state_size: {state_size}")
         self.encoder = nn.Sequential(
             nn.Linear(state_size, 128),
             nn.BatchNorm1d(128),

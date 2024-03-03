@@ -167,7 +167,7 @@ class BaseTrain:
             param.grad.data.clamp_(-1, 1)
         self.optimizer.step()
 
-    def train(self, num_episodes=50):
+    def train(self, num_episodes=50, test_per_epoch=True):
         print('Training', self.model_kind, '...')
         for i_episode in tqdm(range(num_episodes)):
             # Initialize the environment and state
@@ -198,6 +198,12 @@ class BaseTrain:
             if i_episode % self.TARGET_UPDATE == 0:
                 self.target_net.load_state_dict(self.policy_net.state_dict())
 
+            if test_per_epoch:
+                print(f"\ntest on train:")
+                self.test(1000, test_type='train', policy_net=self.policy_net).evaluate(simple_print=True)
+                print(f"\ntest on test: ")
+                self.test(1000, test_type='test', policy_net=self.policy_net).evaluate(simple_print=True)
+
         self.save_model(self.policy_net.state_dict())
 
         print('Complete')
@@ -205,7 +211,7 @@ class BaseTrain:
     def save_model(self, model):
         torch.save(model, self.model_dir)
 
-    def test(self, initial_investment=1000, test_type='test'):
+    def test(self, initial_investment=1000, test_type='test', policy_net=None):
         """
         :@param file_name: name of the .pkl file to load the model
         :@param test_type: test results on train data or test data
@@ -213,7 +219,11 @@ class BaseTrain:
         """
         data = self.data_train if test_type == 'train' else self.data_test
 
-        self.test_net.load_state_dict(torch.load(self.model_dir))
+        if policy_net is not None:
+            self.test_net.load_state_dict(policy_net.state_dict())
+        else:
+            self.test_net.load_state_dict(torch.load(self.model_dir))
+
         self.test_net.to(device)
 
         action_list = []

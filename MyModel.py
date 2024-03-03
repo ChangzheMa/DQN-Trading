@@ -138,7 +138,7 @@ DATA_LOADERS = {
 # 默认参数
 def get_default_param():
     return SimpleNamespace(
-        FEATURE_SIZE=256,   # 又名 n_classes
+        FEATURE_SIZE=64,  # 又名 n_classes
         WINDOW_SIZE=10,
         TRANSACTION_COST=0,
         BATCH_SIZE=10,
@@ -146,10 +146,17 @@ def get_default_param():
         REPLAY_MEMORY_SIZE=20,
         TARGET_UPDATE=5,
         N_STEP=8,
-        N_EPISODES=5,
-        ALPHA_EXTENSION=[f"alpha_{('000' + str(i))[-3:]}" for i in range(1, 102)],
+        N_EPISODES=2,
+        # ALPHA_EXTENSION=[f"alpha_{('000' + str(i))[-3:]}" for i in range(1, 102)],
         # ALPHA_EXTENSION=['alpha_019', 'alpha_026', 'alpha_024', 'alpha_074', 'alpha_081',
         #                  'alpha_032', 'alpha_050', 'alpha_099', 'alpha_088', 'alpha_061',],
+        ALPHA_EXTENSION=['alpha_032', 'alpha_019', 'alpha_050', 'alpha_026', 'alpha_024',
+                         'alpha_088', 'alpha_061', 'alpha_074', 'alpha_081', 'alpha_060',
+                         'alpha_095', 'alpha_099', 'alpha_077', 'alpha_071', 'alpha_064',
+                         'alpha_068', 'alpha_031', 'alpha_075', 'alpha_052', 'alpha_086',
+                         'alpha_094', 'alpha_037', 'alpha_013', 'alpha_023', 'alpha_025',
+                         'alpha_028', 'alpha_065', 'alpha_016', 'alpha_042', 'alpha_040',
+                         'alpha_003', 'alpha_073', 'alpha_083', ],
     )
 
 
@@ -929,7 +936,7 @@ def train_mlp_windowed(data_name, data_loader, portfolios_data, label_name=f"MLP
     print(f"================ Encoder: \n{mlp_windowed.encoder}")
     print(f"================ Decoder: \n{mlp_windowed.policy_decoder}")
     mlp_windowed.train(num_episodes=param.N_EPISODES)
-    mlp_windowed.test().evaluate()
+    mlp_windowed.test().evaluate(simple_print=True)
     portfolios_data[label_name] = mlp_windowed.test().get_daily_portfolio_value()
 
 
@@ -947,14 +954,16 @@ def train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f
                                               device, param.GAMMA, param.N_STEP, param.BATCH_SIZE,
                                               param.WINDOW_SIZE, param.TRANSACTION_COST, param.ALPHA_EXTENSION)
     mlp_windowed_ext = SimpleMLPExt(data_loader, trainData, testData, data_name,
-                                    state_mode=5, window_size=param.WINDOW_SIZE, transaction_cost=param.TRANSACTION_COST,
+                                    state_mode=5, window_size=param.WINDOW_SIZE,
+                                    transaction_cost=param.TRANSACTION_COST,
                                     n_classes=param.FEATURE_SIZE,
-                                    BATCH_SIZE=param.BATCH_SIZE, GAMMA=param.GAMMA, ReplayMemorySize=param.REPLAY_MEMORY_SIZE,
+                                    BATCH_SIZE=param.BATCH_SIZE, GAMMA=param.GAMMA,
+                                    ReplayMemorySize=param.REPLAY_MEMORY_SIZE,
                                     TARGET_UPDATE=param.TARGET_UPDATE, n_step=param.N_STEP)
     print(f"================ Encoder: \n{mlp_windowed_ext.encoder}")
     print(f"================ Decoder: \n{mlp_windowed_ext.policy_decoder}")
     mlp_windowed_ext.train(num_episodes=param.N_EPISODES)
-    mlp_windowed_ext.test().evaluate()
+    mlp_windowed_ext.test().evaluate(simple_print=True)
     portfolios_data[label_name] = mlp_windowed_ext.test().get_daily_portfolio_value()
 
 
@@ -1016,37 +1025,20 @@ if __name__ == '__main__':
     portfolios_data = {}
 
     param = get_default_param()
-    param.N_EPISODES = 5
     train_mlp_windowed(data_name, data_loader, portfolios_data, label_name=f"MLP-epc5", param=param)
 
     param = get_default_param()
-    param.N_EPISODES = 200
-    param.FEATURE_SIZE = 256
-    train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"MLPExt-epc50-fs256", param=param)
+    train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"MLPExt-epc5", param=param)
 
-    param = get_default_param()
-    param.N_EPISODES = 200
-    param.FEATURE_SIZE = 64
-    train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"MLPExt-epc50-fs64", param=param)
-
-    param = get_default_param()
-    param.N_EPISODES = 5
-    train_gru(data_name, data_loader, portfolios_data, label_name=f"GRU-epc5", param=param)
-
-    param = get_default_param()
-    param.N_EPISODES = 200
-    param.FEATURE_SIZE = 256
-    train_gru_ext(data_name, data_loader, portfolios_data, label_name=f"GRUExt-epc50-fs256", param=param)
-
-    param = get_default_param()
-    param.N_EPISODES = 200
-    param.FEATURE_SIZE = 64
-    train_gru_ext(data_name, data_loader, portfolios_data, label_name=f"GRUExt-epc50-fs64", param=param)
+    # param = get_default_param()
+    # train_gru(data_name, data_loader, portfolios_data, label_name=f"GRU-epc5", param=param)
+    #
+    # param = get_default_param()
+    # train_gru_ext(data_name, data_loader, portfolios_data, label_name=f"GRUExt-epc5", param=param)
 
     file_path = "Results/ModelCompare"
     plot_portfolios(portfolios_data, data_loader.data_test_with_date, file_path, f"{data_name}-MyModel-Big")
     save_portfolios(portfolios_data, file_path, f"{data_name}-MyModel-Big")
-
 
     '''
     ---------- 以下开始分模型获取数据
