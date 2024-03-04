@@ -42,13 +42,13 @@ class Encoder(nn.Module):
             # nn.LeakyReLU(),
             nn.Linear(128, num_classes),
         )
-        self.combine_encoder = nn.Sequential(
-            nn.Linear(num_classes * 2, num_classes * 2),
-            # nn.LeakyReLU(),
-            # nn.Linear(num_classes * 4, num_classes * 4),
-            # nn.LeakyReLU(),
-            # nn.Linear(num_classes * 4, num_classes),
-        )
+        # self.combine_encoder = nn.Sequential(
+        #     nn.Linear(num_classes * 2, num_classes * 2),
+        #     # nn.LeakyReLU(),
+        #     # nn.Linear(num_classes * 4, num_classes * 4),
+        #     # nn.LeakyReLU(),
+        #     # nn.Linear(num_classes * 4, num_classes),
+        # )
 
     def forward(self, x):
         batch_size = x.shape[0]
@@ -59,4 +59,4 @@ class Encoder(nn.Module):
         state_out = self.state_encoder(state_x)
         ext_out = self.ext_encoder(ext_x)
 
-        return self.combine_encoder(torch.cat((state_out, ext_out), dim=-1))
+        return state_out, ext_out

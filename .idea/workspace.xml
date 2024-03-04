@@ -4,8 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aecc937b-6d87-4645-86ef-be7d17e37463" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/DeepRLAgent/BaseTrain.py" beforeDir="false" afterPath="$PROJECT_DIR$/DeepRLAgent/BaseTrain.py" afterDir="false" />
+    <list default="true" id="aecc937b-6d87-4645-86ef-be7d17e37463" name="Changes" comment="更新了一些参数">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeepRLAgent/MLPEncoderExtension/Decoder.py" beforeDir="false" afterPath="$PROJECT_DIR$/DeepRLAgent/MLPEncoderExtension/Decoder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeepRLAgent/MLPEncoderExtension/Encoder.py" beforeDir="false" afterPath="$PROJECT_DIR$/DeepRLAgent/MLPEncoderExtension/Encoder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeepRLAgent/MLPEncoderExtension/Seq2SeqModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/DeepRLAgent/MLPEncoderExtension/Seq2SeqModel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EncoderDecoderAgent/GRUExtension/Decoder.py" beforeDir="false" afterPath="$PROJECT_DIR$/EncoderDecoderAgent/GRUExtension/Decoder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyModel.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -197,14 +202,6 @@
       <updated>1709052133038</updated>
       <workItem from="1709052134053" duration="5455000" />
       <workItem from="1709132460149" duration="57341000" />
-    </task>
-    <task id="LOCAL-00034" summary="窗口加载数据方法中添加 alpha_extension">
-      <option name="closed" value="true" />
-      <created>1709318026912</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1709318026912</updated>
     </task>
     <task id="LOCAL-00035" summary="窗口加载数据方法中添加 alpha_extension">
       <option name="closed" value="true" />
@@ -590,7 +587,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709441264782</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="更新了一些参数">
+      <option name="closed" value="true" />
+      <created>1709441298574</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1709441298574</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -646,6 +651,6 @@
     <SUITE FILE_PATH="coverage/DQN_Trading$BaseLineAndTest.coverage" NAME="BaseLineAndTest Coverage Results" MODIFIED="1709237235469" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/DQN_Trading$CalMutualScore.coverage" NAME="CalMutualScore Coverage Results" MODIFIED="1709438369383" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PreProcess" />
     <SUITE FILE_PATH="coverage/DQN_Trading$script.coverage" NAME="script Coverage Results" MODIFIED="1709143437479" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/DQN_Trading$MyModel.coverage" NAME="MyModel Coverage Results" MODIFIED="1709441064151" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/DQN_Trading$MyModel.coverage" NAME="MyModel Coverage Results" MODIFIED="1709487716987" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
