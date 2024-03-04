@@ -10,6 +10,6 @@ class Seq2Seq(nn.Module):
 
     def forward(self, x):
         # c is the context
-        state_out, ext_out = self.encoder(x)
-        output = self.decoder([state_out, ext_out])
+        state_out, ext_out, gru_state_out, gru_state_hidden, gru_ext_out, gru_ext_hidden = self.encoder(x)
+        output = self.decoder([state_out, ext_out, gru_state_out, gru_state_hidden, gru_ext_out, gru_ext_hidden])
         return output

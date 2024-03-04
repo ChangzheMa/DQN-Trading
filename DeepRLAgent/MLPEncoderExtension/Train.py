@@ -17,6 +17,8 @@ class Train(BaseTrain):
                  dataset_name,
                  state_mode=1,
                  window_size=1,
+                 hidden_size=128,
+                 weight=(1, 1, 1, 1),
                  transaction_cost=0.0,
                  n_classes=50,
                  BATCH_SIZE=30,
@@ -59,9 +61,10 @@ class Train(BaseTrain):
                                     TARGET_UPDATE,
                                     n_step)
 
-        self.encoder = Encoder(n_classes, data_train.state_size, data_train.ext_size, window_size).to(device)
-        self.policy_decoder = Decoder(n_classes, 3).to(device)
-        self.target_decoder = Decoder(n_classes, 3).to(device)
+        self.encoder = Encoder(n_classes, data_train.state_size, data_train.ext_size, window_size, hidden_size,
+                               device).to(device)
+        self.policy_decoder = Decoder(n_classes, hidden_size, 3, weight).to(device)
+        self.target_decoder = Decoder(n_classes, hidden_size, 3, weight).to(device)
 
         self.policy_net = Seq2Seq(self.encoder, self.policy_decoder).to(device)
         self.target_net = Seq2Seq(self.encoder, self.target_decoder).to(device)
@@ -71,8 +74,9 @@ class Train(BaseTrain):
 
         self.optimizer = optim.Adam(self.policy_net.parameters())
 
-        test_encoder = Encoder(n_classes, self.data_train.state_size, data_train.ext_size, window_size).to(device)
-        test_decoder = Decoder(n_classes, 3).to(device)
+        test_encoder = Encoder(n_classes, self.data_train.state_size, data_train.ext_size, window_size, hidden_size,
+                               device).to(device)
+        test_decoder = Decoder(n_classes, hidden_size, 3, weight).to(device)
 
         self.test_net = Seq2Seq(test_encoder, test_decoder)
         self.test_net.to(device)

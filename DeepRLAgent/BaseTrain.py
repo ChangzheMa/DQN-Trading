@@ -12,6 +12,7 @@ from DeepRLAgent.ReplayMemory import ReplayMemory, Transition
 
 from itertools import count
 from tqdm import tqdm
+from utils import save_pkl, load_pkl
 import math
 import os
 
@@ -110,11 +111,14 @@ class BaseTrain:
 
         if sample > eps_threshold:
             with torch.no_grad():
+                # print(f"state shape: {state.shape}")
                 # t.max(1) will return largest column value of each row.
                 # second column on max result is index of where max element was
                 # found, so we pick action with the larger expected reward.
                 self.policy_net.eval()
-                action = self.policy_net(state).max(1)[1].view(1, 1)
+                action = self.policy_net(state)
+                # print(f"action shape: {action.shape}")
+                action = action.max(1)[1].view(1, 1)
                 self.policy_net.train()
                 return action
         else:
@@ -167,7 +171,7 @@ class BaseTrain:
             param.grad.data.clamp_(-1, 1)
         self.optimizer.step()
 
-    def train(self, num_episodes=50, test_per_epoch=True):
+    def train(self, num_episodes=50, test_per_epoch=True, tag=""):
         print('Training', self.model_kind, '...')
         for i_episode in tqdm(range(num_episodes)):
             # Initialize the environment and state
@@ -175,6 +179,7 @@ class BaseTrain:
             state = torch.tensor([self.data_train.get_current_state()], dtype=torch.float, device=device)
             for t in count():
                 # Select and perform an action
+                # print(f"state shape: {state.shape}")
                 action = self.select_action(state)
                 done, reward, next_state = self.data_train.step(action.item())
 
@@ -202,7 +207,15 @@ class BaseTrain:
                 print(f"\ntest on train:")
                 self.test(1000, test_type='train', policy_net=self.policy_net).evaluate(simple_print=True)
                 print(f"\ntest on test: ")
-                self.test(1000, test_type='test', policy_net=self.policy_net).evaluate(simple_print=True)
+                test_eva = self.test(1000, test_type='test', policy_net=self.policy_net)
+                test_eva.evaluate(simple_print=True)
+
+                if test_eva.total_return() > 0:
+                    path = "Results/portfolios"
+                    if not os.path.exists(path):
+                        os.makedirs(path)
+                    portfolio = test_eva.get_daily_portfolio_value()
+                    save_pkl(f"{path}/{tag}-epc{i_episode}-return{round(test_eva.total_return())}.pkl", portfolio)
 
         self.save_model(self.policy_net.state_dict())
 

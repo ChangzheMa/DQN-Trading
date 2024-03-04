@@ -146,7 +146,18 @@ def get_default_param():
         REPLAY_MEMORY_SIZE=20,
         TARGET_UPDATE=5,
         N_STEP=8,
-        N_EPISODES=2,
+        N_EPISODES=30,
+        HIDDEN_SIZE=64,
+        WEIGHT_LIST=[
+            (9, 1, 1, 1),
+            (1, 9, 1, 1),
+            (1, 1, 9, 1),
+            (1, 1, 1, 9),
+            (8, 5, 5, 5),
+            (5, 5, 8, 5),
+            (8, 5, 8, 5),
+            (9, 4, 7, 4),
+        ],
         # ALPHA_EXTENSION=[f"alpha_{('000' + str(i))[-3:]}" for i in range(1, 102)],
         # ALPHA_EXTENSION=['alpha_019', 'alpha_026', 'alpha_024', 'alpha_074', 'alpha_081',
         #                  'alpha_032', 'alpha_050', 'alpha_099', 'alpha_088', 'alpha_061',],
@@ -940,7 +951,7 @@ def train_mlp_windowed(data_name, data_loader, portfolios_data, label_name=f"MLP
     portfolios_data[label_name] = mlp_windowed.test().get_daily_portfolio_value()
 
 
-def train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"MLP_windowed_ext", param=None):
+def train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"MLP_windowed_ext", param=None, weight=(1, 1, 1, 1)):
     if param is None:
         param = get_default_param()
     trainData = DataAutoPatternExtractionAgent(data_loader.data_train,
@@ -955,6 +966,7 @@ def train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f
                                               param.WINDOW_SIZE, param.TRANSACTION_COST, param.ALPHA_EXTENSION)
     mlp_windowed_ext = SimpleMLPExt(data_loader, trainData, testData, data_name,
                                     state_mode=5, window_size=param.WINDOW_SIZE,
+                                    hidden_size=param.HIDDEN_SIZE, weight=weight,
                                     transaction_cost=param.TRANSACTION_COST,
                                     n_classes=param.FEATURE_SIZE,
                                     BATCH_SIZE=param.BATCH_SIZE, GAMMA=param.GAMMA,
@@ -962,7 +974,8 @@ def train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f
                                     TARGET_UPDATE=param.TARGET_UPDATE, n_step=param.N_STEP)
     print(f"================ Encoder: \n{mlp_windowed_ext.encoder}")
     print(f"================ Decoder: \n{mlp_windowed_ext.policy_decoder}")
-    mlp_windowed_ext.train(num_episodes=param.N_EPISODES)
+    print(f"================ weight : \n{weight}")
+    mlp_windowed_ext.train(num_episodes=param.N_EPISODES, test_per_epoch=True, tag=f"{data_loader.DATA_NAME}-({'-'.join([str(i) for i in weight])})")
     mlp_windowed_ext.test().evaluate(simple_print=True)
     portfolios_data[label_name] = mlp_windowed_ext.test().get_daily_portfolio_value()
 
@@ -1019,26 +1032,25 @@ if __name__ == '__main__':
 
     # 回报结果
 
-    data_name = DATA_LIST[0]
-    data_loader = DATA_LOADERS[data_name]
+    for data_name in DATA_LIST:
+        data_loader = DATA_LOADERS[data_name]
+        portfolios_data = {}
 
-    portfolios_data = {}
+        param = get_default_param()
+        for weight in param.WEIGHT_LIST:
+            train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"FullExt_({'-'.join([str(item) for item in weight])})", param=param, weight=weight)
 
-    param = get_default_param()
-    train_mlp_windowed(data_name, data_loader, portfolios_data, label_name=f"MLP-epc5", param=param)
-
-    param = get_default_param()
-    train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"MLPExt-epc5", param=param)
+        file_path = "Results/ModelCompare"
+        plot_portfolios(portfolios_data, data_loader.data_test_with_date, file_path, f"{data_name}-MyModel-Big")
+        save_portfolios(portfolios_data, file_path, f"{data_name}-MyModel-Big")
 
     # param = get_default_param()
     # train_gru(data_name, data_loader, portfolios_data, label_name=f"GRU-epc5", param=param)
-    #
+
     # param = get_default_param()
     # train_gru_ext(data_name, data_loader, portfolios_data, label_name=f"GRUExt-epc5", param=param)
 
-    file_path = "Results/ModelCompare"
-    plot_portfolios(portfolios_data, data_loader.data_test_with_date, file_path, f"{data_name}-MyModel-Big")
-    save_portfolios(portfolios_data, file_path, f"{data_name}-MyModel-Big")
+
 
     '''
     ---------- 以下开始分模型获取数据
