@@ -32,7 +32,7 @@ available_stock_list = [
 
 
 def sort_by_score(item):
-    return item[1]
+    return abs(item[1]) if not np.isnan(item[1]) else 0
 
 
 scores = {}
@@ -60,7 +60,9 @@ for stock_code in available_stock_list:
         for index in range(1, 102):
             # 计算互信息分数
             col_name = f"alpha_{('000' + str(index))[-3:]}"
-            score = mutual_info_regression(data.loc[:, col_name:col_name], data[f"close_return_lag{lag}"])
+            # score = mutual_info_regression(data.loc[:, col_name:col_name], data[f"close_return_lag{lag}"])  # 互信息
+            # score = data[col_name].corr(data[f"close_return_lag{lag}"], method='spearman')  # spearman 相关系数
+            score = data[col_name].corr(data[f"close_return_lag{lag}"])  # pearson 相关系数
             scores[stock_code][f"lag{lag}"].append((col_name, score))
 
         scores[stock_code][f"lag{lag}"].sort(key=sort_by_score, reverse=True)
@@ -70,7 +72,8 @@ for stock_code in scores.keys():
     for lag_name in scores[stock_code].keys():
         col_names.extend([item for (item, score) in scores[stock_code][lag_name][:50]])
 
-print(collections.Counter(col_names))
+for item, count in collections.Counter(col_names).most_common():
+    print(f"'{item}',")
 
 '''
 Counter({'alpha_019': 10,

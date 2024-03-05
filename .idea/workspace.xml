@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="aecc937b-6d87-4645-86ef-be7d17e37463" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyModel.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PreProcess/CalMutualScore.py" beforeDir="false" afterPath="$PROJECT_DIR$/PreProcess/CalMutualScore.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -198,14 +199,6 @@
       <updated>1709052133038</updated>
       <workItem from="1709052134053" duration="5455000" />
       <workItem from="1709132460149" duration="57341000" />
-    </task>
-    <task id="LOCAL-00038" summary="窗口加载数据方法中添加 alpha_extension">
-      <option name="closed" value="true" />
-      <created>1709322536481</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1709322536481</updated>
     </task>
     <task id="LOCAL-00039" summary="窗口加载数据方法中添加 alpha_extension">
       <option name="closed" value="true" />
@@ -591,7 +584,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709606264804</updated>
     </task>
-    <option name="localTasksCounter" value="87" />
+    <task id="LOCAL-00087" summary="处理互信息">
+      <option name="closed" value="true" />
+      <created>1709624664790</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1709624664790</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -641,7 +642,8 @@
     <MESSAGE value="调整超参数" />
     <MESSAGE value="更新了一些参数" />
     <MESSAGE value="添加了一个混合模型" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加了一个混合模型" />
+    <MESSAGE value="处理互信息" />
+    <option name="LAST_COMMIT_MESSAGE" value="处理互信息" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/DQN_Trading$Main.coverage" NAME="Main Coverage Results" MODIFIED="1709053648299" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
