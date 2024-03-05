@@ -146,17 +146,17 @@ def get_default_param():
         REPLAY_MEMORY_SIZE=20,
         TARGET_UPDATE=5,
         N_STEP=8,
-        N_EPISODES=30,
+        N_EPISODES=20,
         HIDDEN_SIZE=64,
         WEIGHT_LIST=[
-            (9, 1, 1, 1),
-            (1, 9, 1, 1),
-            (1, 1, 9, 1),
-            (1, 1, 1, 9),
-            (8, 5, 5, 5),
-            (5, 5, 8, 5),
-            (8, 5, 8, 5),
-            (9, 4, 7, 4),
+            [(9, 1, 1, 1), 10],
+            [(1, 9, 1, 1), 10],
+            [(1, 1, 9, 1), 10],
+            [(1, 1, 1, 9), 10],
+            [(8, 5, 5, 5), 30],
+            [(5, 5, 8, 5), 30],
+            [(8, 5, 8, 5), 30],
+            [(9, 4, 7, 4), 30],
         ],
         # ALPHA_EXTENSION=[f"alpha_{('000' + str(i))[-3:]}" for i in range(1, 102)],
         # ALPHA_EXTENSION=['alpha_019', 'alpha_026', 'alpha_024', 'alpha_074', 'alpha_081',
@@ -200,38 +200,70 @@ def get_default_param():
         #     'alpha_044',
         #     'alpha_053',
         # ],
-        ALPHA_EXTENSION=[   # Pearson 相关系数
+        # ALPHA_EXTENSION=[   # Pearson 相关系数
+        #     'alpha_032',
+        #     'alpha_024',
+        #     'alpha_088',
+        #     'alpha_014',
+        #     'alpha_077',
+        #     'alpha_005',
+        #     'alpha_040',
+        #     'alpha_006',
+        #     'alpha_004',
+        #     'alpha_078',
+        #     'alpha_026',
+        #     'alpha_092',
+        #     'alpha_094',
+        #     'alpha_099',
+        #     'alpha_018',
+        #     'alpha_060',
+        #     'alpha_047',
+        #     'alpha_028',
+        #     'alpha_096',
+        #     'alpha_021',
+        #     'alpha_003',
+        #     'alpha_071',
+        #     'alpha_007',
+        #     'alpha_036',
+        #     'alpha_054',
+        #     'alpha_037',
+        #     'alpha_050',
+        #     'alpha_019',
+        #     'alpha_035',
+        #     'alpha_038',
+        # ],
+        ALPHA_EXTENSION=[  # 随机森林分类
             'alpha_032',
-            'alpha_024',
-            'alpha_088',
-            'alpha_014',
-            'alpha_077',
-            'alpha_005',
-            'alpha_040',
-            'alpha_006',
-            'alpha_004',
-            'alpha_078',
-            'alpha_026',
-            'alpha_092',
-            'alpha_094',
-            'alpha_099',
-            'alpha_018',
-            'alpha_060',
-            'alpha_047',
             'alpha_028',
-            'alpha_096',
-            'alpha_021',
-            'alpha_003',
-            'alpha_071',
-            'alpha_007',
-            'alpha_036',
-            'alpha_054',
-            'alpha_037',
-            'alpha_050',
+            'alpha_031',
+            'alpha_085',
+            'alpha_022',
+            'alpha_052',
+            'alpha_077',
+            'alpha_039',
+            'alpha_011',
+            'alpha_060',
+            'alpha_066',
+            'alpha_030',
+            'alpha_040',
+            'alpha_072',
+            'alpha_055',
+            'alpha_002',
             'alpha_019',
-            'alpha_035',
-            'alpha_038',
-        ]
+            'alpha_036',
+            'alpha_014',
+            'alpha_006',
+            'alpha_037',
+            'alpha_084',
+            'alpha_024',
+            'alpha_001',
+            'alpha_044',
+            'alpha_016',
+            'alpha_005',
+            'alpha_029',
+            'alpha_026',
+            'alpha_008',
+        ],
     )
 
 
@@ -1015,7 +1047,8 @@ def train_mlp_windowed(data_name, data_loader, portfolios_data, label_name=f"MLP
     portfolios_data[label_name] = mlp_windowed.test().get_daily_portfolio_value()
 
 
-def train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"MLP_windowed_ext", param=None, weight=(1, 1, 1, 1)):
+def train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"MLP_windowed_ext", param=None,
+                           weight=(1, 1, 1, 1), epoches=10):
     if param is None:
         param = get_default_param()
     trainData = DataAutoPatternExtractionAgent(data_loader.data_train,
@@ -1039,7 +1072,8 @@ def train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f
     print(f"================ Encoder: \n{mlp_windowed_ext.encoder}")
     print(f"================ Decoder: \n{mlp_windowed_ext.policy_decoder}")
     print(f"================ weight : \n{weight}")
-    mlp_windowed_ext.train(num_episodes=param.N_EPISODES, test_per_epoch=True, tag=f"{data_loader.DATA_NAME}-({'-'.join([str(i) for i in weight])})")
+    mlp_windowed_ext.train(num_episodes=epoches, test_per_epoch=True,
+                           tag=f"{data_loader.DATA_NAME}-({'-'.join([str(i) for i in weight])})")
     mlp_windowed_ext.test().evaluate(simple_print=True)
     portfolios_data[label_name] = mlp_windowed_ext.test().get_daily_portfolio_value()
 
@@ -1101,8 +1135,10 @@ if __name__ == '__main__':
         portfolios_data = {}
 
         param = get_default_param()
-        for weight in param.WEIGHT_LIST:
-            train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"FullExt_({'-'.join([str(item) for item in weight])})", param=param, weight=weight)
+        for [weight, eps] in param.WEIGHT_LIST:
+            train_mlp_windowed_ext(data_name, data_loader, portfolios_data,
+                                   label_name=f"FullExt_({'-'.join([str(item) for item in weight])})", param=param,
+                                   weight=weight, epoches=eps)
 
         file_path = "Results/ModelCompare"
         plot_portfolios(portfolios_data, data_loader.data_test_with_date, file_path, f"{data_name}-MyModel-Big")
@@ -1113,8 +1149,6 @@ if __name__ == '__main__':
 
     # param = get_default_param()
     # train_gru_ext(data_name, data_loader, portfolios_data, label_name=f"GRUExt-epc5", param=param)
-
-
 
     '''
     ---------- 以下开始分模型获取数据

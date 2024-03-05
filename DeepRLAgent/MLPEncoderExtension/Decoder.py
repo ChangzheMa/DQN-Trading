@@ -27,6 +27,13 @@ class Decoder(nn.Module):
             nn.Softmax(),
         )
 
+        # self.state_policy_weight = nn.Sequential(
+        #     nn.Linear(num_classes, 128),
+        #     nn.BatchNorm1d(128),
+        #     nn.Linear(128, 1),
+        #     nn.Sigmoid(),
+        # )
+
         self.ext_policy_network = nn.Sequential(
             nn.Linear(num_classes, 128),
             nn.BatchNorm1d(128),
@@ -37,6 +44,13 @@ class Decoder(nn.Module):
             nn.Linear(256, action_length),
             nn.Softmax(),
         )
+
+        # self.ext_policy_weight = nn.Sequential(
+        #     nn.Linear(num_classes, 128),
+        #     nn.BatchNorm1d(128),
+        #     nn.Linear(128, 1),
+        #     nn.Sigmoid(),
+        # )
 
         self.gru_state_policy_network = nn.Sequential(
             nn.Linear(hidden_size, 128),
@@ -49,6 +63,13 @@ class Decoder(nn.Module):
             nn.Softmax(),
         )
 
+        # self.gru_state_policy_weight = nn.Sequential(
+        #     nn.Linear(num_classes, 128),
+        #     nn.BatchNorm1d(128),
+        #     nn.Linear(128, 1),
+        #     nn.Sigmoid(),
+        # )
+
         self.gru_ext_policy_network = nn.Sequential(
             nn.Linear(hidden_size, 128),
             nn.BatchNorm1d(128),
@@ -60,19 +81,32 @@ class Decoder(nn.Module):
             nn.Softmax(),
         )
 
+        # self.gru_ext_policy_weight = nn.Sequential(
+        #     nn.Linear(num_classes, 128),
+        #     nn.BatchNorm1d(128),
+        #     nn.Linear(128, 1),
+        #     nn.Sigmoid(),
+        # )
+
     def forward(self, x):
         # for i in range(len(x)):
         #     print(f"x[{i}].shape: {x[i].shape}")
         # print(f"decoder x len: {len(x)}, {x[0].shape}, {x[1].shape}")
         state_out = self.state_policy_network(x[0])
+        # state_out_weight = self.state_policy_weight(x[0])
 
         ext_out = self.ext_policy_network(x[1])
+        # ext_out_weight = self.ext_policy_weight(x[1])
 
         state_hidden = x[3].squeeze().unsqueeze(0) if len(x[3].squeeze().shape) < 2 else x[3].squeeze()
         gru_state_out = self.gru_state_policy_network(state_hidden).squeeze()
+        # gru_state_out_weight = self.gru_state_policy_weight(state_hidden)
 
         ext_hidden = x[5].squeeze().unsqueeze(0) if len(x[5].squeeze().shape) < 2 else x[5].squeeze()
         gru_ext_out = self.gru_ext_policy_network(ext_hidden)
+        # gru_ext_out_weight = self.gru_ext_policy_weight(ext_hidden)
+
+
 
         # print(f"state_out: {state_out.shape}, ext_out: {ext_out.shape}, "
         #       f"gru_state_out: {gru_state_out.shape}, gru_ext_out: {gru_ext_out.shape}, ")
