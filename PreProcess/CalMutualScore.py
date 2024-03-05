@@ -1,6 +1,7 @@
 import collections
 import math
 
+import numpy as np
 from jqdatasdk import *
 import pandas as pd
 import os
@@ -36,23 +37,38 @@ def sort_by_score(item):
 
 scores = {}
 
+lag_list = [1, 2, 3, 5, 10, 20, 50]
+
 for stock_code in available_stock_list:
     data = pd.read_csv(f"../Data/{stock_code}/alpha101.csv")
-    scores[stock_code] = []
-    for index in range(1, 102):
-        # 价格
-        data['close_norm_lag1'] = data['close_norm'].shift(-1)
-        data.dropna(inplace=True)
-        # 技术指标
-        col_name = f"alpha_{('000' + str(index))[-3:]}"
-        score = mutual_info_regression(data.loc[:, col_name:col_name], data['close_norm_lag1'])
-        scores[stock_code].append((col_name, score))
+    scores[stock_code] = {}
 
-    scores[stock_code].sort(key=sort_by_score, reverse=True)
+    for lag in lag_list:
+        data[f"close_return_lag{lag}"] = data['close_norm'].shift(-lag) / data['close_norm']
+
+    # 处理 inf -inf
+    data.replace([np.inf, -np.inf], np.nan, inplace=True)
+    # 处理 过大/过小 的值
+    numerical_data = data.select_dtypes(include=[np.number])
+    numerical_data = numerical_data.where((numerical_data <= 1e6) & (numerical_data >= 1e-6), np.nan)
+    data.update(numerical_data)
+    # 把所有不合法的值丢掉
+    data.dropna(inplace=True)
+
+    for lag in lag_list:
+        scores[stock_code][f"lag{lag}"] = []
+        for index in range(1, 102):
+            # 计算互信息分数
+            col_name = f"alpha_{('000' + str(index))[-3:]}"
+            score = mutual_info_regression(data.loc[:, col_name:col_name], data[f"close_return_lag{lag}"])
+            scores[stock_code][f"lag{lag}"].append((col_name, score))
+
+        scores[stock_code][f"lag{lag}"].sort(key=sort_by_score, reverse=True)
 
 col_names = []
-for key in scores.keys():
-    col_names.extend([item for (item, score) in scores[key][:50]])
+for stock_code in scores.keys():
+    for lag_name in scores[stock_code].keys():
+        col_names.extend([item for (item, score) in scores[stock_code][lag_name][:50]])
 
 print(collections.Counter(col_names))
 
