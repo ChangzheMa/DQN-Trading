@@ -2,6 +2,8 @@
 import datetime
 import math
 
+import numpy as np
+
 from DataLoader.DataLoader import YahooFinanceDataLoader
 from DataLoader.DataForPatternBasedAgent import DataForPatternBasedAgent
 from DataLoader.DataAutoPatternExtractionAgent import DataAutoPatternExtractionAgent
@@ -226,26 +228,27 @@ class SensitivityRun:
 
         self.reset()
         self.test_portfolios = {
-            # 'DQN-pattern': {},
-            # 'DQN-vanilla': {},
-            # 'DQN-candlerep': {},
-            'DQN-windowed': {},
-            'DQN-windowed-ext': {},
-            # 'MLP-pattern': {},
-            # 'MLP-vanilla': {},
-            # 'MLP-candlerep': {},
+            # # 'DQN-pattern': {},
+            # # 'DQN-vanilla': {},
+            # # 'DQN-candlerep': {},
+            # 'DQN-windowed': {},
+            # 'DQN-windowed-ext': {},
+            # # 'MLP-pattern': {},
+            # # 'MLP-vanilla': {},
+            # # 'MLP-candlerep': {},
             'MLP-windowed': {},
-            'MLP-windowed-ext': {},
-            # 'CNN1d': {},
-            'CNN2d': {},
-            'CNN2d-ext': {},
+            # 'MLP-windowed-ext': {},
+            # # 'CNN1d': {},
+            # 'CNN2d': {},
+            # 'CNN2d-ext': {},
             'GRU': {},
-            'GRU-ext': {},
-            # 'Deep-CNN': {},
-            'CNN-GRU': {},
-            'CNN-GRU-ext': {},
-            # 'CNN-ATTN': {},
-            'BAH': {}
+            # 'GRU-ext': {},
+            # # 'Deep-CNN': {},
+            # 'CNN-GRU': {},
+            # 'CNN-GRU-ext': {},
+            # # 'CNN-ATTN': {},
+            'BAH': {},
+            'MM-DQN': {},
         }
 
     def reset(self):
@@ -734,17 +737,45 @@ class SensitivityRun:
         self.plot_and_save_sensitivity()
         self.save_portfolios()
 
+    def load_stored_data(self, to_use):
+        self.test_portfolios['MLP-windowed'] = load_pkl(f"Results/portfolios-use/{to_use[self.dataset_name]['l']}")
+        self.test_portfolios['GRU'] = load_pkl(f"Results/portfolios-use/{to_use[self.dataset_name]['r']}")
+        self.test_portfolios['MM-DQN'] = load_pkl(f"Results/portfolios-use/{to_use[self.dataset_name]['my']}")
+        # print(f"{dataset_name}: total return, volatility, sharpe ratio")
+        print("")
+        for label in ['MLP-windowed', 'GRU', 'MM-DQN']:
+            portfolios = self.test_portfolios[label]
+            rate_of_return = self.rate_of_return(portfolios)
+            print(f"{round(self.total_return(portfolios), 2)}, {round(self.calculate_daily_return_volatility(rate_of_return), 5)}, {round(self.sharp_ratio(rate_of_return), 5)}")
+
+    def total_return(self, portfolio_value):
+        return (portfolio_value[-1] - 1000) / 1000 * 100
+
+    def rate_of_return(self, portfolio_value):
+        return [(portfolio_value[p + 1] - portfolio_value[p]) / portfolio_value[p] for p in range(len(portfolio_value) - 1)]
+
+    def calculate_daily_return_volatility(self, rate_of_return):
+        # 计算平均收益率
+        mean_return = np.mean(rate_of_return)
+        T = len(rate_of_return)
+        volatility = np.sqrt(sum([(r - mean_return) ** 2 for r in rate_of_return]) / (T - 1))
+
+        return volatility
+
+    def sharp_ratio(self, rate_of_return):
+        return np.mean(rate_of_return) / np.std(rate_of_return)
+
     def evaluate_models(self):
-        self.test_portfolios['DQN-windowed'] = self.dqn_windowed.test().get_daily_portfolio_value()
-        self.test_portfolios['DQN-windowed-ext'] = self.dqn_windowed_ext.test().get_daily_portfolio_value()
-        self.test_portfolios['MLP-windowed'] = self.mlp_windowed.test().get_daily_portfolio_value()
-        self.test_portfolios['MLP-windowed-ext'] = self.mlp_windowed_ext.test().get_daily_portfolio_value()
-        self.test_portfolios['CNN2d'] = self.cnn2d.test().get_daily_portfolio_value()
-        self.test_portfolios['CNN2d-ext'] = self.cnn2d_ext.test().get_daily_portfolio_value()
-        self.test_portfolios['GRU'] = self.gru.test().get_daily_portfolio_value()
-        self.test_portfolios['GRU-ext'] = self.gru_ext.test().get_daily_portfolio_value()
-        self.test_portfolios['CNN-GRU'] = self.cnn_gru.test().get_daily_portfolio_value()
-        self.test_portfolios['CNN-GRU-ext'] = self.cnn_gru_ext.test().get_daily_portfolio_value()
+        # self.test_portfolios['DQN-windowed'] = self.dqn_windowed.test().get_daily_portfolio_value()
+        # self.test_portfolios['DQN-windowed-ext'] = self.dqn_windowed_ext.test().get_daily_portfolio_value()
+        # self.test_portfolios['MLP-windowed'] = self.mlp_windowed.test().get_daily_portfolio_value()
+        # self.test_portfolios['MLP-windowed-ext'] = self.mlp_windowed_ext.test().get_daily_portfolio_value()
+        # self.test_portfolios['CNN2d'] = self.cnn2d.test().get_daily_portfolio_value()
+        # self.test_portfolios['CNN2d-ext'] = self.cnn2d_ext.test().get_daily_portfolio_value()
+        # self.test_portfolios['GRU'] = self.gru.test().get_daily_portfolio_value()
+        # self.test_portfolios['GRU-ext'] = self.gru_ext.test().get_daily_portfolio_value()
+        # self.test_portfolios['CNN-GRU'] = self.cnn_gru.test().get_daily_portfolio_value()
+        # self.test_portfolios['CNN-GRU-ext'] = self.cnn_gru_ext.test().get_daily_portfolio_value()
         self.evaluate_bah_model()
 
     def print_evaluate_models(self):
@@ -791,7 +822,7 @@ class SensitivityRun:
 
     def save_models_compare(self):
         self.plot_and_save_models_compare()
-        self.save_portfolios()
+        # self.save_portfolios()
         pass
 
     def plot_and_save_models_compare(self):
@@ -878,9 +909,11 @@ if __name__ == '__main__':
         '601398',
     ]
 
+    to_use = load_pkl("./to_use.pkl")
+
     for dataset_name in data_list:
         # print(str(datetime.datetime.now()) + ' : ' + dataset_name)
-        print(dataset_name)
+        # print(dataset_name)
         run = SensitivityRun(
             dataset_name,
             gamma_default,
@@ -892,7 +925,7 @@ if __name__ == '__main__':
             n_step,
             window_size,
             device,
-            evaluation_parameter='ModelCompareWithAlpha',
+            evaluation_parameter='ModelCompare',
             transaction_cost=0,
             alpha_extension=[
                 'alpha_019',
@@ -908,7 +941,8 @@ if __name__ == '__main__':
             ]
         )
         run.reset()
-        run.train()
+        run.load_stored_data(to_use)
+        # run.train()
         run.evaluate_models()
-        run.print_evaluate_models()
+        # run.print_evaluate_models()
         run.save_models_compare()
