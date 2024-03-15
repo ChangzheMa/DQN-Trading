@@ -4,7 +4,6 @@ from DeepRLAgent.MLPEncoderExtension.Decoder import Decoder
 from DeepRLAgent.MLPEncoderExtension.Encoder import Encoder
 from DeepRLAgent.BaseTrain import BaseTrain
 import torch
-from torchsummary import summary
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
