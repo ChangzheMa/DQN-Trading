@@ -50,47 +50,47 @@ DATA_LOADERS = {
                                       split_point='2018-01-01',
                                       load_from_file=True),
 
-    'GOOGL': YahooFinanceDataLoader('GOOGL',
-                                    split_point='2018-01-01',
-                                    load_from_file=True),
-
-    'AAPL': YahooFinanceDataLoader('AAPL',
-                                   split_point='2018-01-01',
-                                   begin_date='2010-01-01',
-                                   end_date='2020-08-24',
-                                   load_from_file=True),
-
-    'DJI': YahooFinanceDataLoader('DJI',
-                                  split_point='2016-01-01',
-                                  begin_date='2009-01-01',
-                                  end_date='2018-09-30',
-                                  load_from_file=True),
-
-    'S&P': YahooFinanceDataLoader('S&P',
-                                  split_point=2000,
-                                  end_date='2018-09-25',
-                                  load_from_file=True),
-
-    'AMD': YahooFinanceDataLoader('AMD',
-                                  split_point=2000,
-                                  end_date='2018-09-25',
-                                  load_from_file=True),
-
-    'GE': YahooFinanceDataLoader('GE',
-                                 split_point='2015-01-01',
-                                 load_from_file=True),
-
-    'KSS': YahooFinanceDataLoader('KSS',
-                                  split_point='2018-01-01',
-                                  load_from_file=True),
-
-    'HSI': YahooFinanceDataLoader('HSI',
-                                  split_point='2015-01-01',
-                                  load_from_file=True),
-
-    'AAL': YahooFinanceDataLoader('AAL',
-                                  split_point='2018-01-01',
-                                  load_from_file=True),
+    # 'GOOGL': YahooFinanceDataLoader('GOOGL',
+    #                                 split_point='2018-01-01',
+    #                                 load_from_file=True),
+    #
+    # 'AAPL': YahooFinanceDataLoader('AAPL',
+    #                                split_point='2018-01-01',
+    #                                begin_date='2010-01-01',
+    #                                end_date='2020-08-24',
+    #                                load_from_file=True),
+    #
+    # 'DJI': YahooFinanceDataLoader('DJI',
+    #                               split_point='2016-01-01',
+    #                               begin_date='2009-01-01',
+    #                               end_date='2018-09-30',
+    #                               load_from_file=True),
+    #
+    # 'S&P': YahooFinanceDataLoader('S&P',
+    #                               split_point=2000,
+    #                               end_date='2018-09-25',
+    #                               load_from_file=True),
+    #
+    # 'AMD': YahooFinanceDataLoader('AMD',
+    #                               split_point=2000,
+    #                               end_date='2018-09-25',
+    #                               load_from_file=True),
+    #
+    # 'GE': YahooFinanceDataLoader('GE',
+    #                              split_point='2015-01-01',
+    #                              load_from_file=True),
+    #
+    # 'KSS': YahooFinanceDataLoader('KSS',
+    #                               split_point='2018-01-01',
+    #                               load_from_file=True),
+    #
+    # 'HSI': YahooFinanceDataLoader('HSI',
+    #                               split_point='2015-01-01',
+    #                               load_from_file=True),
+    #
+    # 'AAL': YahooFinanceDataLoader('AAL',
+    #                               split_point='2018-01-01',
+    #                               load_from_file=True),
 
     '000651': YahooFinanceDataLoader('000651',
                                      split_point='2020-01-01',
@@ -1103,21 +1103,28 @@ if __name__ == '__main__':
     start_time = dt.datetime.now()
     print(f"--------- total start time: {start_time}")
 
-    # 回报结果
-
     for data_name in DATA_LIST:
         data_loader = DATA_LOADERS[data_name]
         portfolios_data = {}
-
         param = get_default_param()
-        for [weight, eps] in param.WEIGHT_LIST:
-            train_mlp_windowed_ext(data_name, data_loader, portfolios_data,
-                                   label_name=f"FullExt_({'-'.join([str(item) for item in weight])})", param=param,
-                                   weight=weight, epoches=eps)
+        train_mlp_windowed(data_name, data_loader, portfolios_data, label_name="MLP_windowed",
+                           param=param)
 
-        file_path = "Results/ModelCompare"
-        plot_portfolios(portfolios_data, data_loader.data_test_with_date, file_path, f"{data_name}-MyModel-Big")
-        save_portfolios(portfolios_data, file_path, f"{data_name}-MyModel-Big")
+    # 回报结果
+
+    # for data_name in DATA_LIST:
+    #     data_loader = DATA_LOADERS[data_name]
+    #     portfolios_data = {}
+    #
+    #     param = get_default_param()
+    #     for [weight, eps] in param.WEIGHT_LIST:
+    #         train_mlp_windowed_ext(data_name, data_loader, portfolios_data,
+    #                                label_name=f"FullExt_({'-'.join([str(item) for item in weight])})", param=param,
+    #                                weight=weight, epoches=eps)
+    #
+    #     file_path = "Results/ModelCompare"
+    #     plot_portfolios(portfolios_data, data_loader.data_test_with_date, file_path, f"{data_name}-MyModel-Big")
+    #     save_portfolios(portfolios_data, file_path, f"{data_name}-MyModel-Big")
 
     # param = get_default_param()
     # train_gru(data_name, data_loader, portfolios_data, label_name=f"GRU-epc5", param=param)
