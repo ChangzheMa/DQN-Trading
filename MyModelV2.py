@@ -1110,6 +1110,7 @@ if __name__ == '__main__':
         train_mlp_windowed(data_name, data_loader, portfolios_data, label_name="MLP_windowed",
                            param=param)
 
+
     # 回报结果
 
     # for data_name in DATA_LIST:
