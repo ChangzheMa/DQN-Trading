@@ -1017,6 +1017,8 @@ def train_mlp_windowed(data_name, data_loader, portfolios_data, label_name=f"MLP
                              TARGET_UPDATE=param.TARGET_UPDATE, n_step=param.N_STEP)
     print(f"================ Encoder: \n{mlp_windowed.encoder}")
     print(f"================ Decoder: \n{mlp_windowed.policy_decoder}")
+    mlp_windowed.load_model()
+    mlp_windowed.test().evaluate(simple_print=True)
     mlp_windowed.train(num_episodes=param.N_EPISODES)
     mlp_windowed.test().evaluate(simple_print=True)
     portfolios_data[label_name] = mlp_windowed.test().get_daily_portfolio_value()
@@ -1103,7 +1105,7 @@ if __name__ == '__main__':
     start_time = dt.datetime.now()
     print(f"--------- total start time: {start_time}")
 
-    for data_name in DATA_LIST:
+    for data_name in ['BTC-USD']:
         data_loader = DATA_LOADERS[data_name]
         portfolios_data = {}
         param = get_default_param()
@@ -1133,9 +1135,9 @@ if __name__ == '__main__':
     # param = get_default_param()
     # train_gru_ext(data_name, data_loader, portfolios_data, label_name=f"GRUExt-epc5", param=param)
 
-    '''
-    ---------- 以下开始分模型获取数据
-    '''
+    # '''
+    # ---------- 以下开始分模型获取数据
+    # '''
     # # 以下开始分模型获取数据
     # feature_size_list = [16, 64, 256]
     # window_size_list = [10, 20, 40]

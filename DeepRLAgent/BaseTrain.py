@@ -221,7 +221,16 @@ class BaseTrain:
 
         print('Complete')
 
+    def load_model(self, model_dir=None):
+        if model_dir is None:
+            model_dir = self.model_dir
+        print(f"load model from : {model_dir}")
+        state = torch.load(model_dir)
+        self.policy_net.load_state_dict(state)
+        self.target_net.load_state_dict(state)
+
     def save_model(self, model):
+        print(f"save model to : {self.model_dir}")
         torch.save(model, self.model_dir)
 
     def test(self, initial_investment=1000, test_type='test', policy_net=None):
