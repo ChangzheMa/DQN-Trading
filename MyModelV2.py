@@ -998,36 +998,6 @@ def save_portfolios(portfolios_data, file_path, file_name):
     save_pkl(path, portfolios_data)
 
 
-def train_mlp_windowed(data_name, data_loader, portfolios_data, label_name=f"MLP_windowed", param=None,
-                       load_pre_model=False):
-    if param is None:
-        param = get_default_param()
-    trainData = DataAutoPatternExtractionAgent(data_loader.data_train,
-                                               5,
-                                               'action_auto_extraction_windowed',
-                                               device, param.GAMMA, param.N_STEP, param.BATCH_SIZE,
-                                               param.WINDOW_SIZE, param.TRANSACTION_COST)
-    testData = DataAutoPatternExtractionAgent(data_loader.data_test,
-                                              5,
-                                              'action_auto_extraction_windowed',
-                                              device, param.GAMMA, param.N_STEP, param.BATCH_SIZE,
-                                              param.WINDOW_SIZE, param.TRANSACTION_COST)
-    mlp_windowed = SimpleMLP(data_loader, trainData, testData, data_name,
-                             state_mode=5, window_size=param.WINDOW_SIZE, transaction_cost=param.TRANSACTION_COST,
-                             n_classes=param.FEATURE_SIZE,
-                             BATCH_SIZE=param.BATCH_SIZE, GAMMA=param.GAMMA, ReplayMemorySize=param.REPLAY_MEMORY_SIZE,
-                             TARGET_UPDATE=param.TARGET_UPDATE, n_step=param.N_STEP)
-    print(f"================ Encoder: \n{mlp_windowed.encoder}")
-    print(f"================ Decoder: \n{mlp_windowed.policy_decoder}")
-    if load_pre_model:
-        mlp_windowed.load_model()
-        mlp_windowed.test().evaluate(simple_print=True)
-    mlp_windowed.train(num_episodes=param.N_EPISODES)
-    mlp_windowed.test().evaluate(simple_print=True)
-    portfolios_data[label_name] = mlp_windowed.test().get_daily_portfolio_value()
-    return mlp_windowed
-
-
 def train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"MLP_windowed_ext", param=None,
                            weight=(1, 1, 1, 1), epoches=10):
     if param is None:
@@ -1099,6 +1069,36 @@ def train_gru_ext(data_name, data_loader, portfolios_data, label_name=f"GRU_ext"
     gru_ext.train(num_episodes=param.N_EPISODES, tensorboard=tensorboard_writer)
     gru_ext.test().evaluate()
     portfolios_data[label_name] = gru_ext.test().get_daily_portfolio_value()
+
+
+def train_mlp_windowed(data_name, data_loader, portfolios_data, label_name=f"MLP_windowed", param=None,
+                       load_pre_model=False):
+    if param is None:
+        param = get_default_param()
+    trainData = DataAutoPatternExtractionAgent(data_loader.data_train,
+                                               5,
+                                               'action_auto_extraction_windowed',
+                                               device, param.GAMMA, param.N_STEP, param.BATCH_SIZE,
+                                               param.WINDOW_SIZE, param.TRANSACTION_COST)
+    testData = DataAutoPatternExtractionAgent(data_loader.data_test,
+                                              5,
+                                              'action_auto_extraction_windowed',
+                                              device, param.GAMMA, param.N_STEP, param.BATCH_SIZE,
+                                              param.WINDOW_SIZE, param.TRANSACTION_COST)
+    mlp_windowed = SimpleMLP(data_loader, trainData, testData, data_name,
+                             state_mode=5, window_size=param.WINDOW_SIZE, transaction_cost=param.TRANSACTION_COST,
+                             n_classes=param.FEATURE_SIZE,
+                             BATCH_SIZE=param.BATCH_SIZE, GAMMA=param.GAMMA, ReplayMemorySize=param.REPLAY_MEMORY_SIZE,
+                             TARGET_UPDATE=param.TARGET_UPDATE, n_step=param.N_STEP)
+    print(f"================ Encoder: \n{mlp_windowed.encoder}")
+    print(f"================ Decoder: \n{mlp_windowed.policy_decoder}")
+    if load_pre_model:
+        mlp_windowed.load_model()
+        mlp_windowed.test().evaluate(simple_print=True)
+    mlp_windowed.train(num_episodes=param.N_EPISODES)
+    mlp_windowed.test().evaluate(simple_print=True)
+    portfolios_data[label_name] = mlp_windowed.test().get_daily_portfolio_value()
+    return mlp_windowed
 
 
 def plot_actions(agent, data_loader, file_path, file_name):

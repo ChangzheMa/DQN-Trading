@@ -179,7 +179,7 @@ class BaseTrain:
             state = torch.tensor([self.data_train.get_current_state()], dtype=torch.float, device=device)
             for t in count():
                 # Select and perform an action
-                # print(f"state shape: {state.shape}")
+                # print(f"state shape: {state.shape}")      # state shape: torch.Size([1, 50])
                 action = self.select_action(state)
                 done, reward, next_state = self.data_train.step(action.item())
 
