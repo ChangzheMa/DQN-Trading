@@ -1,6 +1,7 @@
 # Importing DataLoaders for each model. These models include rule-based, vanilla DQN and encoder-decoder DQN.
 import datetime
 import math
+import plotly.graph_objs as go
 
 from DataLoader.DataLoader import YahooFinanceDataLoader
 from DataLoader.DataForPatternBasedAgent import DataForPatternBasedAgent
@@ -145,7 +146,7 @@ def get_default_param():
         REPLAY_MEMORY_SIZE=20,
         TARGET_UPDATE=5,
         N_STEP=8,
-        N_EPISODES=20,
+        N_EPISODES=1,
         HIDDEN_SIZE=64,
         WEIGHT_LIST=[
             [(9, 1, 1, 1), 10],
@@ -997,7 +998,8 @@ def save_portfolios(portfolios_data, file_path, file_name):
     save_pkl(path, portfolios_data)
 
 
-def train_mlp_windowed(data_name, data_loader, portfolios_data, label_name=f"MLP_windowed", param=None):
+def train_mlp_windowed(data_name, data_loader, portfolios_data, label_name=f"MLP_windowed", param=None,
+                       load_pre_model=False):
     if param is None:
         param = get_default_param()
     trainData = DataAutoPatternExtractionAgent(data_loader.data_train,
@@ -1017,11 +1019,13 @@ def train_mlp_windowed(data_name, data_loader, portfolios_data, label_name=f"MLP
                              TARGET_UPDATE=param.TARGET_UPDATE, n_step=param.N_STEP)
     print(f"================ Encoder: \n{mlp_windowed.encoder}")
     print(f"================ Decoder: \n{mlp_windowed.policy_decoder}")
-    mlp_windowed.load_model()
-    mlp_windowed.test().evaluate(simple_print=True)
+    if load_pre_model:
+        mlp_windowed.load_model()
+        mlp_windowed.test().evaluate(simple_print=True)
     mlp_windowed.train(num_episodes=param.N_EPISODES)
     mlp_windowed.test().evaluate(simple_print=True)
     portfolios_data[label_name] = mlp_windowed.test().get_daily_portfolio_value()
+    return mlp_windowed
 
 
 def train_mlp_windowed_ext(data_name, data_loader, portfolios_data, label_name=f"MLP_windowed_ext", param=None,
@@ -1097,6 +1101,53 @@ def train_gru_ext(data_name, data_loader, portfolios_data, label_name=f"GRU_ext"
     portfolios_data[label_name] = gru_ext.test().get_daily_portfolio_value()
 
 
+def plot_actions(agent, data_loader, file_path, file_name):
+    df1 = data_loader.data_test_with_date
+    action_list = list(agent.data_test.data[agent.data_test.action_name])
+    df1[agent.data_test.action_name] = action_list
+
+    df1 = df1
+
+    # 准备买入、卖出和持有的数据
+    buy = df1[df1[agent.data_test.action_name] == 'buy']['close']
+    sell = df1[df1[agent.data_test.action_name] == 'sell']['close']
+    none = df1[df1[agent.data_test.action_name] == 'None']['close']
+
+    # 创建价格线（收盘价）
+    price_line = go.Scatter(x=df1.index, y=df1['close'], mode='lines', name='收盘价', line=dict(color='blue'))
+
+    # 添加买入标记（红色向上三角形）
+    buy_marker = go.Scatter(x=buy.index, y=buy, mode='markers', name='买入',
+                            marker=dict(symbol='triangle-up', color='red', size=10))
+
+    # 添加卖出标记（绿色向下三角形）
+    sell_marker = go.Scatter(x=sell.index, y=sell, mode='markers', name='卖出',
+                             marker=dict(symbol='triangle-down', color='green', size=10))
+
+    # 添加持有标记（灰色圆点）
+    none_marker = go.Scatter(x=none.index, y=none, mode='markers', name='持有',
+                             marker=dict(symbol='circle', color='grey', size=10))
+
+    # 定义图表布局
+    layout = go.Layout(
+        autosize=False,
+        width=900,
+        height=600,
+        xaxis=dict(
+            rangeslider=dict(visible=False),
+        )
+    )
+
+    # 创建图表对象并添加数据
+    figSignal = go.Figure(data=[price_line, buy_marker, sell_marker, none_marker], layout=layout)
+
+    # 确保文件路径存在
+    os.makedirs(os.path.dirname(file_path), exist_ok=True)
+
+    # 保存图表为图片
+    figSignal.write_image(os.path.join(file_path, f"{file_name}.jpg"), format='jpeg')
+
+
 if __name__ == '__main__':
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"torch version: {torch.__version__}")
@@ -1109,9 +1160,17 @@ if __name__ == '__main__':
         data_loader = DATA_LOADERS[data_name]
         portfolios_data = {}
         param = get_default_param()
-        train_mlp_windowed(data_name, data_loader, portfolios_data, label_name="MLP_windowed",
-                           param=param)
+        agent = train_mlp_windowed(data_name,
+                                   data_loader,
+                                   portfolios_data,
+                                   label_name="MLP_windowed",
+                                   param=param,
+                                   load_pre_model=True)
 
+        file_path = "Results/V2Test"
+        plot_portfolios(portfolios_data, data_loader.data_test_with_date, file_path, f"{data_name}-V2Test-Return")
+        plot_actions(agent, data_loader, file_path, f"{data_name}-Vf2Test-Action")
+        save_portfolios(portfolios_data, file_path, f"{data_name}-V2Test")
 
     # 回报结果
 
